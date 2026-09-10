@@ -57,7 +57,7 @@ h1 {
 }
 
 .tabs button {
-  background: rgba(255, 255, 255, 0.82);
+  background: #ddd6fe;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow: 0 6px 18px rgba(31, 41, 55, 0.08);
@@ -73,7 +73,7 @@ h1 {
 }
 
 .categories button {
-  background: rgba(255, 255, 255, 0.8);
+  background: #f5d0fe;
   border: 1px solid rgba(203, 213, 225, 0.7);
 }
 
@@ -169,13 +169,13 @@ button {
 
   cursor: pointer;
 
-  color: #334155;
+  color: #4c1d95;
 
   background:
     linear-gradient(
       135deg,
-      #ffffff,
-      #eef4ff
+      #ede9fe,
+      #ddd6fe
     );
 
   box-shadow:
@@ -194,6 +194,11 @@ button:hover {
     0 10px 20px rgba(31, 41, 55, 0.13);
 }
 
+button:focus-visible {
+  outline: 3px solid #7c3aed;
+  outline-offset: 3px;
+}
+
 button:active {
   transform: scale(0.97);
 }
@@ -204,7 +209,7 @@ button:active {
   right: 20px;
   top: 18px;
 
-  background: rgba(255, 255, 255, 0.65);
+  background: #fce7f3;
 
   box-shadow: none;
 }
@@ -263,8 +268,8 @@ hr {
   background:
     linear-gradient(
       145deg,
-      #f8fafc,
-      #edf3fa
+      #f3e8ff,
+      #e9d5ff
     );
 
   border: 1px solid #e2e8f0;
@@ -303,8 +308,8 @@ hr {
   background:
     linear-gradient(
       135deg,
-      #dbeafe,
-      #ede9fe
+      #e9d5ff,
+      #fbcfe8
     );
 }
 

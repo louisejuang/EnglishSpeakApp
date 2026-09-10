@@ -73,8 +73,8 @@ h1 {
 }
 
 .categories button {
-  background: #f5d0fe;
-  border: 1px solid rgba(203, 213, 225, 0.7);
+  background: linear-gradient(135deg, #fff9fb 0%, #fce7ef 100%);
+  border: 1px solid #f5dce6;
 }
 
 /* 主要卡片 */

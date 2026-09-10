@@ -181,10 +181,10 @@ function showWord() {
     current.exampleMeaning;
 
   const categoryNames = {
-    airport: "✈️ 機場英文",
-    hotel: "🏨 飯店英文",
-    restaurant: "🍽️ 餐廳英文",
-    shopping: "🛍️ 購物英文"
+    airport: "✈️ 機場英文・準備起飛！",
+    hotel: "🏨 飯店英文・安心入住",
+    restaurant: "🍽️ 餐廳英文・美味上桌",
+    shopping: "🛍️ 購物英文・開心逛逛"
   };
 
   document.getElementById("categoryName").innerText =
@@ -309,9 +309,9 @@ function updateFavoriteButton() {
     document.getElementById("favoriteButton");
 
   if (exists) {
-    button.innerText = "❤️ 已收藏";
+    button.innerText = "❤️ 已收進口袋";
   } else {
-    button.innerText = "🤍 收藏";
+    button.innerText = "🤍 收進口袋";
   }
 }
 
@@ -325,7 +325,7 @@ function showFavorites() {
   if (favorites.length === 0) {
 
     list.innerHTML =
-      "<p>目前還沒有收藏單字</p>";
+      "<p>口袋還空空的！點一下「🤍 收進口袋」，把想複習的單字帶走吧。</p>";
 
     return;
   }
@@ -451,7 +451,7 @@ function checkQuizAnswer(button, selectedAnswer) {
     document.getElementById(
       "quizResult"
     ).innerText =
-      "✅ 答對了！";
+      "🎉 答對啦！這個單字你會了！";
 
   } else {
 
@@ -460,7 +460,7 @@ function checkQuizAnswer(button, selectedAnswer) {
     document.getElementById(
       "quizResult"
     ).innerText =
-      "❌ 答錯了，正確答案是：" +
+      "💪 差一點！一起記住這個意思：" +
       currentQuizWord.meaning;
   }
 
@@ -478,7 +478,7 @@ function nextQuestion() {
 function updateScore() {
 
   document.getElementById("score").innerText =
-    "分數：" +
+    "答對題數：" +
     score +
     " / " +
     totalQuestions;
@@ -576,7 +576,7 @@ function showSpeakingSentence() {
   document
     .getElementById("listeningStatus")
     .innerText =
-    "按下麥克風開始練習";
+    "準備好了嗎？點麥克風，開口試試吧！";
 
   document
     .getElementById("spokenResult")
@@ -623,7 +623,7 @@ function startSpeakingPractice() {
   if (!SpeechRecognition) {
 
     alert(
-      "你的瀏覽器目前不支援語音辨識，請使用 Chrome 測試。"
+      "這個瀏覽器還不能陪你練口說，換用 Chrome 試試吧！"
     );
 
     return;
@@ -641,7 +641,7 @@ function startSpeakingPractice() {
   document
     .getElementById("listeningStatus")
     .innerText =
-    "🎤 正在聽你說話...";
+    "🎤 我在聽，慢慢說就好…";
 
   recognition.start();
 
@@ -660,7 +660,7 @@ function startSpeakingPractice() {
       document
         .getElementById("listeningStatus")
         .innerText =
-        "❌ 語音辨識失敗：" +
+        "🎤 這次沒能順利辨識，再試試吧！原因：" +
         event.error;
     };
 
@@ -670,7 +670,7 @@ function startSpeakingPractice() {
       document
         .getElementById("listeningStatus")
         .innerText =
-        "語音辨識完成";
+        "這次聆聽結束囉，想再練就點麥克風！";
     };
 }
 
@@ -703,7 +703,7 @@ function checkSpeakingAnswer(spoken) {
   ) {
 
     message =
-      "🌟 Excellent! 完全正確！";
+      "🌟 太棒了！辨識出的句子完全吻合！";
 
   } else {
 
@@ -716,27 +716,27 @@ function checkSpeakingAnswer(spoken) {
     if (similarity >= 0.8) {
 
       message =
-        "👍 很接近了！";
+        "🙌 很接近囉！再聽一次，把小細節補齊！";
 
     } else if (similarity >= 0.5) {
 
       message =
-        "🙂 不錯，再試一次會更好！";
+        "🙂 已經抓到一些單字囉！跟著發音再練一次吧！";
 
     } else {
 
       message =
-        "💪 再聽一次發音後重新試試看。";
+        "💪 別急，先聽一次，再慢慢跟著說！";
     }
   }
 
   document
     .getElementById("spokenResult")
     .innerHTML =
-    "<strong>你說的是：</strong><br>" +
+    "<strong>剛剛聽到你說：</strong><br>" +
     spoken +
     "<br><br>" +
-    "<strong>目標句子：</strong><br>" +
+    "<strong>一起練的句子：</strong><br>" +
     target +
     "<br><br>" +
     message;

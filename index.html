@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>English Learning App</title>
+  <title>旅遊英語，開口就出發！</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -11,13 +14,13 @@
 
   <div class="app">
 
-    <h1>English Learning App</h1>
-    <p class="subtitle">Travel English</p>
+    <h1>旅遊英語，開口就出發！</h1>
+    <p class="subtitle">每天學一點，旅行多一點自信 ✈️</p>
 
     <div class="tabs">
-      <button onclick="showStudyMode()">📚 單字學習</button>
-      <button onclick="showQuizMode()">📝 單字測驗</button>
-      <button onclick="showSpeakingMode()">🎤 口說練習</button>
+      <button onclick="showStudyMode()">📚 單字補給站</button>
+      <button onclick="showQuizMode()">📝 單字小挑戰</button>
+      <button onclick="showSpeakingMode()">🎤 開口練一練</button>
     </div>
 
     <!-- 單字學習區 -->
@@ -32,14 +35,14 @@
 
       <div class="card">
 
-        <p id="categoryName" class="category-name">機場英文</p>
+        <p id="categoryName" class="category-name">✈️ 機場英文・準備起飛！</p>
 
         <button
           id="favoriteButton"
           class="favorite-button"
           onclick="toggleFavorite()"
         >
-          🤍 收藏
+          🤍 收進口袋
         </button>
 
         <h2 id="word">passport</h2>
@@ -47,7 +50,7 @@
         <p id="meaning" class="meaning">護照</p>
 
         <button onclick="playWord()">
-          🔊 單字發音
+          🔊 聽聽怎麼念
         </button>
 
         <hr>
@@ -61,22 +64,22 @@
         </p>
 
         <button onclick="playExample()">
-          🔊 例句發音
+          🔊 聽聽這一句
         </button>
 
         <div class="navigation">
-          <button onclick="previousWord()">← 上一個</button>
-          <button onclick="nextWord()">下一個 →</button>
+          <button onclick="previousWord()">← 複習上一個</button>
+          <button onclick="nextWord()">再學一個 →</button>
         </div>
 
       </div>
 
       <div class="favorite-section">
 
-        <h2>❤️ 我的收藏</h2>
+        <h2>❤️ 我的單字口袋</h2>
 
         <button onclick="showFavorites()">
-          查看收藏單字
+          打開單字口袋
         </button>
 
         <div id="favoriteList"></div>
@@ -90,7 +93,7 @@
 
       <div class="quiz-card">
 
-        <p class="quiz-label">選出正確的中文意思</p>
+        <p class="quiz-label">這個單字是什麼意思？選一個試試！</p>
 
         <h2 id="quizWord">passport</h2>
 
@@ -99,7 +102,7 @@
         <p id="quizResult"></p>
 
         <p id="score">
-          分數：0 / 0
+          答對題數：0 / 0
         </p>
 
         <button
@@ -107,7 +110,7 @@
           onclick="nextQuestion()"
           class="hidden"
         >
-          下一題 →
+          挑戰下一題 →
         </button>
 
       </div>
@@ -120,7 +123,7 @@
   <div class="speaking-card">
 
     <p class="speaking-label">
-      請跟著念
+      先聽一句，再勇敢跟著說！
     </p>
 
     <h2 id="speakingSentence">
@@ -132,7 +135,7 @@
     </p>
 
     <button onclick="playSpeakingSentence()">
-      🔊 聽發音
+      🔊 先聽怎麼說
     </button>
 
     <br>
@@ -141,17 +144,17 @@
       class="mic-button"
       onclick="startSpeakingPractice()"
     >
-      🎤 開始說話
+      🎤 換我說說看
     </button>
 
     <p id="listeningStatus">
-      按下麥克風開始練習
+      準備好了嗎？點麥克風，開口試試吧！
     </p>
 
     <div id="spokenResult"></div>
 
     <button onclick="nextSpeakingSentence()">
-      下一句 →
+      再練一句 →
     </button>
 
   </div>

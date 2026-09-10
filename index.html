@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Learning App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <h1>English Learning App</h1>
+    <p class="subtitle">Travel English</p>
+
+    <div class="tabs">
+      <button onclick="showStudyMode()">📚 單字學習</button>
+      <button onclick="showQuizMode()">📝 單字測驗</button>
+      <button onclick="showSpeakingMode()">🎤 口說練習</button>
+    </div>
+
+    <!-- 單字學習區 -->
+    <div id="studyMode">
+
+      <div class="categories">
+        <button onclick="changeCategory('airport')">✈️ 機場</button>
+        <button onclick="changeCategory('hotel')">🏨 飯店</button>
+        <button onclick="changeCategory('restaurant')">🍽️ 餐廳</button>
+        <button onclick="changeCategory('shopping')">🛍️ 購物</button>
+      </div>
+
+      <div class="card">
+
+        <p id="categoryName" class="category-name">機場英文</p>
+
+        <button
+          id="favoriteButton"
+          class="favorite-button"
+          onclick="toggleFavorite()"
+        >
+          🤍 收藏
+        </button>
+
+        <h2 id="word">passport</h2>
+
+        <p id="meaning" class="meaning">護照</p>
+
+        <button onclick="playWord()">
+          🔊 單字發音
+        </button>
+
+        <hr>
+
+        <h3 id="example">
+          Please show me your passport.
+        </h3>
+
+        <p id="exampleMeaning">
+          請出示你的護照。
+        </p>
+
+        <button onclick="playExample()">
+          🔊 例句發音
+        </button>
+
+        <div class="navigation">
+          <button onclick="previousWord()">← 上一個</button>
+          <button onclick="nextWord()">下一個 →</button>
+        </div>
+
+      </div>
+
+      <div class="favorite-section">
+
+        <h2>❤️ 我的收藏</h2>
+
+        <button onclick="showFavorites()">
+          查看收藏單字
+        </button>
+
+        <div id="favoriteList"></div>
+
+      </div>
+
+    </div>
+
+    <!-- Quiz 測驗區 -->
+    <div id="quizMode" class="hidden">
+
+      <div class="quiz-card">
+
+        <p class="quiz-label">選出正確的中文意思</p>
+
+        <h2 id="quizWord">passport</h2>
+
+        <div id="quizOptions" class="quiz-options"></div>
+
+        <p id="quizResult"></p>
+
+        <p id="score">
+          分數：0 / 0
+        </p>
+
+        <button
+          id="nextQuestionButton"
+          onclick="nextQuestion()"
+          class="hidden"
+        >
+          下一題 →
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- 口說練習區 -->
+<div id="speakingMode" class="hidden">
+
+  <div class="speaking-card">
+
+    <p class="speaking-label">
+      請跟著念
+    </p>
+
+    <h2 id="speakingSentence">
+      I'd like to check in.
+    </h2>
+
+    <p id="speakingMeaning">
+      我想辦理入住。
+    </p>
+
+    <button onclick="playSpeakingSentence()">
+      🔊 聽發音
+    </button>
+
+    <br>
+
+    <button
+      class="mic-button"
+      onclick="startSpeakingPractice()"
+    >
+      🎤 開始說話
+    </button>
+
+    <p id="listeningStatus">
+      按下麥克風開始練習
+    </p>
+
+    <div id="spokenResult"></div>
+
+    <button onclick="nextSpeakingSentence()">
+      下一句 →
+    </button>
+
+  </div>
+
+</div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>

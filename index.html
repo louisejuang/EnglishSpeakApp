@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=centered-heading-5">
 </head>
 
 <body>
@@ -38,11 +38,11 @@
         <p id="categoryName" class="category-name">✈️ 機場英文・準備起飛！</p>
 
         <button
-          id="favoriteButton"
+          id="favoriteButton" aria-label="收進口袋" aria-pressed="false"
           class="favorite-button"
           onclick="toggleFavorite()"
         >
-          🤍 收進口袋
+          <span aria-hidden="true">🤍</span><span class="favorite-label"> 收進口袋</span>
         </button>
 
         <h2 id="word">passport</h2>
@@ -67,6 +67,7 @@
           🔊 聽聽這一句
         </button>
 
+        <p id="wordProgress" aria-live="polite"></p>
         <div class="navigation">
           <button onclick="previousWord()">← 複習上一個</button>
           <button onclick="nextWord()">再學一個 →</button>
@@ -161,7 +162,7 @@
 
 </div>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=category-labels-6"></script>
 
 </body>
 </html>

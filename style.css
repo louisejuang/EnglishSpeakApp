@@ -339,6 +339,39 @@ hr {
 /* 手機版 */
 @media (max-width: 600px) {
 
+  /* 手機版保留右上角位置，圓形愛心與分類文字各自留空間。 */
+  .favorite-button {
+    position: absolute;
+    top: 24px;
+    right: 18px;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    margin: 0;
+    border-radius: 50%;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .favorite-button .favorite-label {
+    display: none;
+  }
+
+  .card .category-name {
+    margin: 0 52px 18px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-wrap: balance;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+  }
+
   .app {
     padding: 28px 14px 50px;
   }

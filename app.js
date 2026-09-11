@@ -1263,6 +1263,9 @@ function showQuizMode() {
   createQuizQuestion();
 
 function showWord() {
+  document.getElementById("wordProgress").innerText =
+    `第 ${currentIndex + 1} 筆 / 共 ${vocabulary[currentCategory].length} 筆`;
+
 
   const current =
     vocabulary[currentCategory][currentIndex];
@@ -1407,11 +1410,12 @@ function updateFavoriteButton() {
   const button =
     document.getElementById("favoriteButton");
 
-  if (exists) {
-    button.innerText = "❤️ 已收進口袋";
-  } else {
-    button.innerText = "🤍 收進口袋";
-  }
+  const label = exists ? "已收進口袋" : "收進口袋";
+  button.innerHTML = '<span aria-hidden="true">' +
+    (exists ? "❤️" : "🤍") + '</span><span class="favorite-label"> ' + label + '</span>';
+  button.setAttribute("aria-label", exists ? "從口袋移除" : "收進口袋");
+  button.setAttribute("aria-pressed", String(exists));
+  button.title = exists ? "從口袋移除" : "收進口袋";
 }
 
 function showFavorites() {

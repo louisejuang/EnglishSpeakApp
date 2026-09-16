@@ -6,8 +6,8 @@
   <title>旅遊英語，開口就出發！</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=translation-layout-28">
+  <link href="https://fonts.googleapis.com/css2?family=Huninn&family=LXGW+WenKai+TC:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=scenario-dialogue-font-34">
 </head>
 
 <body>
@@ -22,6 +22,7 @@
       <button onclick="showStudyMode()">📚 單字補給站</button>
       <button onclick="showQuizMode()">📝 單字小挑戰</button>
       <button onclick="showSpeakingMode()">🎤 開口練一練</button>
+      <button onclick="showTravelMode()">🧳 旅遊情境</button>
       <button onclick="showTranslationMode()">🌐 即時翻譯</button>
     </div>
 
@@ -33,6 +34,8 @@
         <button onclick="changeCategory('hotel')">🏨 飯店</button>
         <button onclick="changeCategory('restaurant')">🍽️ 餐廳</button>
         <button onclick="changeCategory('shopping')">🛍️ 購物</button>
+        <button onclick="changeCategory('transportation')">🚆 交通</button>
+        <button onclick="changeCategory('emergency')">🆘 突發狀況</button>
       </div>
 
       <div class="card">
@@ -174,6 +177,27 @@
 
 </div>
 
+    <div id="travelMode" class="hidden">
+      <div class="card travel-card">
+        <h2>🧳 旅遊情境</h2>
+        <p class="translation-hint">跟著情境聽一句、說一句，把英文用在旅途中。</p>
+        <div class="translation-languages">
+          <label for="travelScenario">選擇情境</label>
+          <select id="travelScenario" onchange="renderTravelScenario()">
+            <option value="0">✈️ 機場報到</option>
+            <option value="1">🏨 飯店入住</option>
+            <option value="2">🍽️ 餐廳點餐</option>
+            <option value="3">🛍️ 購物試穿</option>
+            <option value="4">🚆 搭車問路</option>
+            <option value="5">🆘 遺失物品求助</option>
+          </select>
+        </div>
+        <h3 id="travelTitle"></h3>
+        <p id="travelDescription" class="translation-hint"></p>
+        <div id="travelDialogue"></div>
+      </div>
+    </div>
+
     <div id="dailyMode" class="hidden">
       <div class="card daily-card">
         <h2>☀️ 每日一學</h2>
@@ -233,7 +257,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=translation-layout-28"></script>
+  <script src="app.js?v=travel-scenarios-31"></script>
 
 </body>
 </html>

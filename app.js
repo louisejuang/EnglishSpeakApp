@@ -1209,6 +1209,112 @@ const vocabulary = {
                  ]
 };
 
+vocabulary.transportation = [
+  { word: "bus", meaning: "公車", example: "This bus goes to the museum.", exampleMeaning: "這班公車會到博物館。" },
+  { word: "bus stop", meaning: "公車站牌", example: "The bus stop is across the street.", exampleMeaning: "公車站牌在街道對面。" },
+  { word: "bus station", meaning: "公車總站", example: "We can buy tickets at the bus station.", exampleMeaning: "我們可以在公車總站買票。" },
+  { word: "train", meaning: "火車", example: "The train leaves in ten minutes.", exampleMeaning: "火車十分鐘後出發。" },
+  { word: "train station", meaning: "火車站", example: "How do I get to the train station?", exampleMeaning: "請問火車站怎麼走？" },
+  { word: "subway", meaning: "地下鐵", example: "We took the subway to the city center.", exampleMeaning: "我們搭地下鐵到市中心。" },
+  { word: "tram", meaning: "路面電車", example: "This tram stops near the park.", exampleMeaning: "這班路面電車會停在公園附近。" },
+  { word: "high-speed rail", meaning: "高速鐵路", example: "High-speed rail connects these two cities.", exampleMeaning: "高速鐵路連接這兩座城市。" },
+  { word: "taxi", meaning: "計程車", example: "Could you call a taxi for me?", exampleMeaning: "可以幫我叫一輛計程車嗎？" },
+  { word: "taxi stand", meaning: "計程車排班處", example: "There is a taxi stand outside the station.", exampleMeaning: "車站外有計程車排班處。" },
+  { word: "ferry", meaning: "渡輪", example: "We will take a ferry to the island.", exampleMeaning: "我們會搭渡輪去那座島。" },
+  { word: "bicycle", meaning: "自行車", example: "Can I rent a bicycle here?", exampleMeaning: "我可以在這裡租自行車嗎？" },
+  { word: "scooter", meaning: "速克達機車", example: "Please wear a helmet when riding a scooter.", exampleMeaning: "騎速克達機車時請戴安全帽。" },
+  { word: "rental car", meaning: "租賃汽車", example: "Where can I return the rental car?", exampleMeaning: "我可以在哪裡歸還租賃汽車？" },
+  { word: "shuttle bus", meaning: "接駁巴士", example: "The hotel offers a free shuttle bus.", exampleMeaning: "飯店提供免費接駁巴士。" },
+  { word: "platform", meaning: "月台", example: "The train departs from platform three.", exampleMeaning: "火車從第三月台出發。" },
+  { word: "ticket machine", meaning: "自動售票機", example: "This ticket machine accepts coins.", exampleMeaning: "這台自動售票機接受硬幣。" },
+  { word: "ticket office", meaning: "售票處", example: "The ticket office opens at six.", exampleMeaning: "售票處六點開始營業。" },
+  { word: "fare", meaning: "車資", example: "How much is the bus fare?", exampleMeaning: "公車車資是多少？" },
+  { word: "day pass", meaning: "一日乘車券", example: "A day pass is cheaper for several trips.", exampleMeaning: "如果要搭好幾趟，買一日乘車券比較便宜。" },
+  { word: "transit card", meaning: "交通儲值卡", example: "You can use a transit card on the bus.", exampleMeaning: "你可以在公車上使用交通儲值卡。" },
+  { word: "top up", meaning: "儲值", example: "I need to top up my transit card.", exampleMeaning: "我需要幫交通儲值卡儲值。" },
+  { word: "transfer", meaning: "轉乘", example: "You need to transfer at the next station.", exampleMeaning: "你需要在下一站轉乘。" },
+  { word: "route", meaning: "路線", example: "Which route goes to the beach?", exampleMeaning: "哪條路線會到海灘？" },
+  { word: "timetable", meaning: "時刻表", example: "Please check the timetable before you leave.", exampleMeaning: "出發前請查看時刻表。" },
+  { word: "destination", meaning: "目的地", example: "Select your destination on the screen.", exampleMeaning: "請在螢幕上選擇你的目的地。" },
+  { word: "express train", meaning: "快車", example: "The express train does not stop here.", exampleMeaning: "快車不停靠這裡。" },
+  { word: "local train", meaning: "區間車", example: "The local train stops at every station.", exampleMeaning: "區間車每站都停。" },
+  { word: "last train", meaning: "末班車", example: "What time is the last train?", exampleMeaning: "末班車是幾點？" },
+  { word: "rush hour", meaning: "尖峰時段", example: "The subway is crowded during rush hour.", exampleMeaning: "地下鐵在尖峰時段很擁擠。" },
+  { word: "traffic jam", meaning: "交通堵塞", example: "We are stuck in a traffic jam.", exampleMeaning: "我們遇到塞車了。" },
+  { word: "traffic light", meaning: "交通號誌；紅綠燈", example: "Turn left at the traffic light.", exampleMeaning: "在紅綠燈處左轉。" },
+  { word: "intersection", meaning: "交叉路口", example: "Go straight at the next intersection.", exampleMeaning: "在下一個交叉路口直走。" },
+  { word: "crosswalk", meaning: "行人穿越道", example: "Please use the crosswalk to cross the road.", exampleMeaning: "過馬路請走行人穿越道。" },
+  { word: "sidewalk", meaning: "人行道", example: "Walk on the sidewalk, please.", exampleMeaning: "請走在人行道上。" },
+  { word: "pedestrian", meaning: "行人", example: "Drivers must watch out for pedestrians.", exampleMeaning: "駕駛必須留意行人。" },
+  { word: "bridge", meaning: "橋梁", example: "Cross the bridge and turn right.", exampleMeaning: "過橋後右轉。" },
+  { word: "tunnel", meaning: "隧道", example: "The train is going through a tunnel.", exampleMeaning: "火車正在通過隧道。" },
+  { word: "highway", meaning: "公路；幹道", example: "Take the highway to the airport.", exampleMeaning: "沿著公路前往機場。" },
+  { word: "toll", meaning: "通行費", example: "Is the toll included in the fare?", exampleMeaning: "車資包含通行費嗎？" },
+  { word: "parking lot", meaning: "停車場", example: "There is a parking lot behind the hotel.", exampleMeaning: "飯店後面有一個停車場。" },
+  { word: "parking meter", meaning: "停車收費表", example: "You can pay at the parking meter.", exampleMeaning: "你可以在停車收費表付款。" },
+  { word: "gas station", meaning: "加油站", example: "Where is the nearest gas station?", exampleMeaning: "最近的加油站在哪裡？" },
+  { word: "driver's license", meaning: "駕駛執照", example: "Please show me your driver's license.", exampleMeaning: "請出示你的駕駛執照。" },
+  { word: "speed limit", meaning: "速限", example: "The speed limit is fifty kilometers per hour.", exampleMeaning: "速限是每小時五十公里。" },
+  { word: "roundabout", meaning: "圓環", example: "Take the second exit at the roundabout.", exampleMeaning: "在圓環的第二個出口駛出。" },
+  { word: "get on", meaning: "上車", example: "We should get on the bus here.", exampleMeaning: "我們應該在這裡上公車。" },
+  { word: "get off", meaning: "下車", example: "Get off at the next stop.", exampleMeaning: "在下一站下車。" },
+  { word: "pick up", meaning: "接人", example: "Could you pick me up at the station?", exampleMeaning: "你可以到車站接我嗎？" },
+  { word: "drop off", meaning: "讓人下車；送達", example: "Please drop me off at the hotel entrance.", exampleMeaning: "請讓我在飯店入口下車。" }
+];
+
+vocabulary.emergency = [
+  { word: "emergency", meaning: "緊急狀況", example: "This is an emergency.", exampleMeaning: "這是緊急狀況。" },
+  { word: "help", meaning: "幫助；求助", example: "I need your help.", exampleMeaning: "我需要你的幫助。" },
+  { word: "danger", meaning: "危險", example: "We are in danger.", exampleMeaning: "我們正處於危險之中。" },
+  { word: "safe", meaning: "安全的", example: "Is it safe to stay here?", exampleMeaning: "待在這裡安全嗎？" },
+  { word: "accident", meaning: "意外事故", example: "There has been an accident outside.", exampleMeaning: "外面發生了意外事故。" },
+  { word: "police", meaning: "警察", example: "Please call the police.", exampleMeaning: "請幫忙報警。" },
+  { word: "police station", meaning: "警察局", example: "Where is the nearest police station?", exampleMeaning: "最近的警察局在哪裡？" },
+  { word: "ambulance", meaning: "救護車", example: "Please call an ambulance.", exampleMeaning: "請幫忙叫救護車。" },
+  { word: "firefighter", meaning: "消防員", example: "A firefighter helped us leave the building.", exampleMeaning: "一位消防員協助我們離開大樓。" },
+  { word: "hospital", meaning: "醫院", example: "I need to go to a hospital.", exampleMeaning: "我需要去醫院。" },
+  { word: "clinic", meaning: "診所", example: "Is there a clinic nearby?", exampleMeaning: "附近有診所嗎？" },
+  { word: "doctor", meaning: "醫生", example: "I would like to see a doctor.", exampleMeaning: "我想看醫生。" },
+  { word: "nurse", meaning: "護理師", example: "Could you ask a nurse to help me?", exampleMeaning: "可以請護理師來幫我嗎？" },
+  { word: "injury", meaning: "傷勢；受傷", example: "I have a leg injury.", exampleMeaning: "我的腿受傷了。" },
+  { word: "pain", meaning: "疼痛", example: "I have pain in my back.", exampleMeaning: "我的背部會痛。" },
+  { word: "wound", meaning: "傷口", example: "I have a wound on my hand.", exampleMeaning: "我的手上有傷口。" },
+  { word: "bleeding", meaning: "流血", example: "My finger is bleeding.", exampleMeaning: "我的手指正在流血。" },
+  { word: "burn", meaning: "燒傷；燙傷", example: "I have a burn on my arm.", exampleMeaning: "我的手臂燙傷了。" },
+  { word: "sprain", meaning: "扭傷", example: "The doctor said it was an ankle sprain.", exampleMeaning: "醫生說那是腳踝扭傷。" },
+  { word: "fracture", meaning: "骨折", example: "The doctor found a fracture in my wrist.", exampleMeaning: "醫生發現我的手腕骨折了。" },
+  { word: "fever", meaning: "發燒", example: "I have a fever.", exampleMeaning: "我發燒了。" },
+  { word: "cough", meaning: "咳嗽", example: "I have a bad cough.", exampleMeaning: "我咳得很厲害。" },
+  { word: "headache", meaning: "頭痛", example: "I have a headache.", exampleMeaning: "我頭痛。" },
+  { word: "stomachache", meaning: "肚子痛", example: "I have a stomachache.", exampleMeaning: "我肚子痛。" },
+  { word: "dizzy", meaning: "頭暈的", example: "I feel dizzy.", exampleMeaning: "我覺得頭暈。" },
+  { word: "nausea", meaning: "噁心；想吐", example: "I have nausea and a headache.", exampleMeaning: "我覺得噁心，而且頭痛。" },
+  { word: "allergy", meaning: "過敏", example: "I have a peanut allergy.", exampleMeaning: "我對花生過敏。" },
+  { word: "medicine", meaning: "藥品", example: "I left my medicine at the hotel.", exampleMeaning: "我把藥留在飯店了。" },
+  { word: "prescription", meaning: "處方箋", example: "Do I need a prescription for this medicine?", exampleMeaning: "買這種藥需要處方箋嗎？" },
+  { word: "first aid kit", meaning: "急救箱", example: "Do you have a first aid kit?", exampleMeaning: "你們有急救箱嗎？" },
+  { word: "bandage", meaning: "繃帶", example: "The nurse put a bandage on my arm.", exampleMeaning: "護理師幫我的手臂包上繃帶。" },
+  { word: "lost", meaning: "迷路的；遺失的", example: "I am lost. Could you help me?", exampleMeaning: "我迷路了，可以幫幫我嗎？" },
+  { word: "stolen", meaning: "被偷的", example: "My wallet was stolen.", exampleMeaning: "我的錢包被偷了。" },
+  { word: "theft", meaning: "竊盜", example: "I would like to report a theft.", exampleMeaning: "我想報案，有東西被偷了。" },
+  { word: "pickpocket", meaning: "扒手", example: "A pickpocket took my phone.", exampleMeaning: "扒手偷走了我的手機。" },
+  { word: "lost and found", meaning: "失物招領處", example: "Where is the lost and found?", exampleMeaning: "失物招領處在哪裡？" },
+  { word: "report", meaning: "報告；報案", example: "I need to report a missing passport.", exampleMeaning: "我需要報案，護照遺失了。" },
+  { word: "embassy", meaning: "大使館", example: "How can I contact my embassy?", exampleMeaning: "我該如何聯絡我國的大使館？" },
+  { word: "consulate", meaning: "領事館", example: "Could you help me contact the consulate?", exampleMeaning: "可以幫我聯絡領事館嗎？" },
+  { word: "travel insurance", meaning: "旅遊保險", example: "I have travel insurance.", exampleMeaning: "我有投保旅遊保險。" },
+  { word: "emergency contact", meaning: "緊急聯絡人", example: "My sister is my emergency contact.", exampleMeaning: "我的姊姊是我的緊急聯絡人。" },
+  { word: "fire", meaning: "火災；火", example: "There is a fire in the building.", exampleMeaning: "大樓裡發生火災了。" },
+  { word: "earthquake", meaning: "地震", example: "There was an earthquake this morning.", exampleMeaning: "今天早上發生了地震。" },
+  { word: "flood", meaning: "洪水", example: "The road is closed because of a flood.", exampleMeaning: "道路因洪水而封閉。" },
+  { word: "storm", meaning: "暴風雨", example: "Our ferry was canceled because of the storm.", exampleMeaning: "我們的渡輪因暴風雨而取消了。" },
+  { word: "power outage", meaning: "停電", example: "There is a power outage at the hotel.", exampleMeaning: "飯店停電了。" },
+  { word: "emergency exit", meaning: "緊急出口", example: "Where is the emergency exit?", exampleMeaning: "緊急出口在哪裡？" },
+  { word: "evacuation", meaning: "疏散；撤離", example: "An evacuation is in progress.", exampleMeaning: "目前正在進行疏散。" },
+  { word: "shelter", meaning: "避難所", example: "Where is the nearest shelter?", exampleMeaning: "最近的避難所在哪裡？" },
+  { word: "rescue", meaning: "救援", example: "The rescue team is on its way.", exampleMeaning: "救援隊正在趕來的路上。" }
+];
+
 let currentCategory = "airport";
 let currentIndex = 0;
 
@@ -1219,6 +1325,7 @@ let currentQuizWord = null;
 let answered = false;
 
 function showStudyMode() {
+  document.getElementById("travelMode").classList.add("hidden");
 
   hideDailyMode();
 
@@ -1238,6 +1345,7 @@ function showStudyMode() {
 }
 
 function showQuizMode() {
+  document.getElementById("travelMode").classList.add("hidden");
 
   hideDailyMode();
 
@@ -1284,7 +1392,9 @@ function showWord() {
     airport: "✈️ 機場英文・準備起飛！",
     hotel: "🏨 飯店英文・安心入住",
     restaurant: "🍽️ 餐廳英文・美味上桌",
-    shopping: "🛍️ 購物英文・開心逛逛"
+    shopping: "🛍️ 購物英文・開心逛逛",
+    transportation: "🚆 交通英文・輕鬆出發",
+    emergency: "🆘 突發狀況・安心應對"
   };
 
   document.getElementById("categoryName").innerText =
@@ -1481,7 +1591,9 @@ function getAllWords() {
     ...vocabulary.airport,
     ...vocabulary.hotel,
     ...vocabulary.restaurant,
-    ...vocabulary.shopping
+    ...vocabulary.shopping,
+    ...vocabulary.transportation,
+    ...vocabulary.emergency
   ];
 }
 
@@ -1826,6 +1938,7 @@ const speakingSentences = [
 let speakingIndex = 0;
 
 function showSpeakingMode() {
+  document.getElementById("travelMode").classList.add("hidden");
 
   hideDailyMode();
 
@@ -2169,6 +2282,7 @@ function hideTranslationMode() {
 }
 
 function showTranslationMode() {
+  document.getElementById("travelMode").classList.add("hidden");
   hideDailyMode();
   ["studyMode", "quizMode", "speakingMode"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
@@ -2367,6 +2481,90 @@ window.addEventListener("pagehide", () => {
 });
 
 /* 每日一學：以裝置當地日期輪替，同一天重新整理也維持相同內容。 */
+const travelScenarios = [
+  { title: "✈️ 機場報到", description: "你來到航空公司櫃檯，準備辦理登機手續。", lines: [
+    ["你", "I'd like to check in for my flight.", "我想辦理班機報到。"],
+    ["地勤人員", "May I see your passport, please?", "可以請你出示護照嗎？"],
+    ["你", "Here it is. Could I have a window seat?", "在這裡。可以給我靠窗的座位嗎？"],
+    ["地勤人員", "Certainly. Here is your boarding pass.", "當然可以。這是你的登機證。"]
+  ] },
+  { title: "🏨 飯店入住", description: "抵達飯店後，向櫃檯確認訂房與早餐資訊。", lines: [
+    ["你", "Hello, I have a reservation under the name Chen.", "你好，我有訂房，訂房人姓陳。"],
+    ["櫃檯人員", "Welcome! You booked a room for two nights, correct?", "歡迎！你訂了兩晚的房間，對嗎？"],
+    ["你", "Yes. Is breakfast included?", "對。房價包含早餐嗎？"],
+    ["櫃檯人員", "Yes. Breakfast is served from seven to ten.", "有的。早餐供應時間是七點到十點。"]
+  ] },
+  { title: "🍽️ 餐廳點餐", description: "坐下後請服務生推薦餐點，再點一杯飲料。", lines: [
+    ["你", "Could I have the menu, please?", "可以給我菜單嗎？"],
+    ["服務生", "Of course. Our grilled fish is very popular.", "當然。我們的烤魚很受歡迎。"],
+    ["你", "I'll have the grilled fish and a glass of water, please.", "我要一份烤魚和一杯水，謝謝。"],
+    ["服務生", "Certainly. Would you like anything else?", "好的。還需要其他東西嗎？"]
+  ] },
+  { title: "🛍️ 購物試穿", description: "看到喜歡的上衣，詢問尺寸並找試衣間。", lines: [
+    ["你", "Do you have this shirt in a medium?", "這件上衣有中號的嗎？"],
+    ["店員", "Yes, here you are.", "有的，這件給你。"],
+    ["你", "Thank you. Can I try it on?", "謝謝。我可以試穿嗎？"],
+    ["店員", "Of course. The fitting rooms are over there.", "當然可以。試衣間在那邊。"]
+  ] },
+  { title: "🚆 搭車問路", description: "在車站詢問前往市中心的列車與下車站。", lines: [
+    ["你", "Excuse me, does this train go to the city center?", "不好意思，這班火車會到市中心嗎？"],
+    ["站務人員", "Yes. Take the train from platform two.", "會的。請搭第二月台的列車。"],
+    ["你", "Which station should I get off at?", "我應該在哪一站下車？"],
+    ["站務人員", "Get off at Central Station. It's three stops away.", "在中央車站下車，再三站就到了。"]
+  ] },
+  { title: "🆘 遺失物品求助", description: "發現背包不見了，向服務台描述物品並求助。", lines: [
+    ["你", "Excuse me, I lost my backpack. Could you help me?", "不好意思，我的背包不見了。可以幫幫我嗎？"],
+    ["服務台人員", "What does your backpack look like?", "你的背包是什麼樣子的？"],
+    ["你", "It's a small blue backpack with a white tag.", "那是一個藍色小背包，上面有白色吊牌。"],
+    ["服務台人員", "Let's check the lost and found.", "我們去失物招領處查查看。"]
+  ] }
+];
+
+function showTravelMode() {
+  hideDailyMode();
+  hideTranslationMode();
+  ["studyMode", "quizMode", "speakingMode"].forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+  document.getElementById("travelMode").classList.remove("hidden");
+  renderTravelScenario();
+}
+
+function renderTravelScenario() {
+  window.speechSynthesis?.cancel();
+  const scenario = travelScenarios[Number(document.getElementById("travelScenario").value)] || travelScenarios[0];
+  document.getElementById("travelTitle").textContent = scenario.title;
+  document.getElementById("travelDescription").textContent = scenario.description;
+  const dialogue = document.getElementById("travelDialogue");
+  dialogue.innerHTML = "";
+  scenario.lines.forEach(([role, english, chinese]) => {
+    const line = document.createElement("div");
+    line.className = "travel-line" + (role === "你" ? " traveler" : "");
+    [["travel-role", role], ["travel-english", english], ["travel-chinese", chinese]].forEach(([className, text]) => {
+      const paragraph = document.createElement("p");
+      paragraph.className = className;
+      paragraph.textContent = text;
+      if (className === "travel-english") paragraph.lang = "en";
+      line.appendChild(paragraph);
+    });
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "listen-button";
+    button.textContent = "🔊 聽聽這一句";
+    button.setAttribute("aria-label", "聽聽這一句：" + english);
+    button.disabled = !window.speechSynthesis;
+    button.onclick = () => {
+      const speech = new SpeechSynthesisUtterance(english);
+      speech.lang = "en-US";
+      speech.rate = 0.8;
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(speech);
+    };
+    line.appendChild(button);
+    dialogue.appendChild(line);
+  });
+}
+
 let dailyRefreshTimer;
 
 function getDailyLesson(date = new Date()) {
@@ -2388,6 +2586,7 @@ function hideDailyMode() {
 }
 
 function showDailyMode() {
+  document.getElementById("travelMode").classList.add("hidden");
   hideTranslationMode();
   ["studyMode", "quizMode", "speakingMode"].forEach(id => {
     document.getElementById(id).classList.add("hidden");

@@ -2147,7 +2147,6 @@ function cancelTranslationRequest() {
   translationVersion++;
   if (translationRequest) translationRequest.abort();
   translationRequest = null;
-  document.getElementById("translateButton").disabled = false;
   document.getElementById("translationResult").setAttribute("aria-busy", "false");
 }
 
@@ -2225,7 +2224,6 @@ async function translateText() {
   const controller = new AbortController();
   translationRequest = controller;
   const timeout = setTimeout(() => controller.abort(), 15000);
-  document.getElementById("translateButton").disabled = true;
   document.getElementById("translationResult").setAttribute("aria-busy", "true");
   status.textContent = "正在翻譯…";
   try {
@@ -2259,13 +2257,12 @@ async function translateText() {
     status.textContent = error.message === "quota"
       ? "今天的免費翻譯額度已用完，請稍後再試。"
       : error.name === "AbortError"
-        ? "翻譯等太久了，請按「翻譯這一句」重試。"
-        : "目前無法連上翻譯服務，請確認網路後再試。";
+        ? "翻譯等太久了，請重新輸入或修改文字重試。"
+        : "目前無法連上翻譯服務，請確認網路後修改文字重試。";
   } finally {
     clearTimeout(timeout);
     if (version === translationVersion) {
       translationRequest = null;
-      document.getElementById("translateButton").disabled = false;
       document.getElementById("translationResult").setAttribute("aria-busy", "false");
     }
   }

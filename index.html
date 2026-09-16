@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=centered-heading-5">
+  <link rel="stylesheet" href="style.css?v=quiz-equal-width-11">
 </head>
 
 <body>
@@ -98,6 +98,14 @@
 
         <h2 id="quizWord">passport</h2>
 
+        <button
+          id="quizFavoriteButton" aria-label="收進口袋" aria-pressed="false"
+          class="favorite-button"
+          onclick="toggleFavorite(currentQuizWord)"
+        >
+          <span aria-hidden="true">🤍</span><span class="favorite-label"> 收進口袋</span>
+        </button>
+
         <div id="quizOptions" class="quiz-options"></div>
 
         <p id="quizResult"></p>
@@ -162,7 +170,7 @@
 
 </div>
 
-  <script src="app.js?v=category-labels-6"></script>
+  <script src="app.js?v=quiz-pocket-7"></script>
 
 </body>
 </html>

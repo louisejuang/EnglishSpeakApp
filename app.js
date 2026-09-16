@@ -1359,10 +1359,9 @@ function playExample() {
   speechSynthesis.speak(speech);
 }
 
-function toggleFavorite() {
+function toggleFavorite(current = vocabulary[currentCategory][currentIndex]) {
 
-  const current =
-    vocabulary[currentCategory][currentIndex];
+  if (!current) return;
 
   const exists =
     favorites.some(
@@ -1393,12 +1392,20 @@ function toggleFavorite() {
   );
 
   updateFavoriteButton();
+  if (document.getElementById("favoriteList").innerHTML !== "") {
+    showFavorites();
+  }
 }
 
 function updateFavoriteButton() {
 
-  const current =
-    vocabulary[currentCategory][currentIndex];
+  renderFavoriteButton("favoriteButton", vocabulary[currentCategory][currentIndex]);
+  renderFavoriteButton("quizFavoriteButton", currentQuizWord);
+}
+
+function renderFavoriteButton(buttonId, current) {
+
+  if (!current) return;
 
   const exists =
     favorites.some(
@@ -1408,7 +1415,7 @@ function updateFavoriteButton() {
     );
 
   const button =
-    document.getElementById("favoriteButton");
+    document.getElementById(buttonId);
 
   const label = exists ? "已收進口袋" : "收進口袋";
   button.innerHTML = '<span aria-hidden="true">' +
@@ -1483,6 +1490,8 @@ function createQuizQuestion() {
 
   document.getElementById("quizWord").innerText =
     currentQuizWord.word;
+
+  updateFavoriteButton();
 
   let options = [currentQuizWord.meaning];
 

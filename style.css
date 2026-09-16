@@ -214,6 +214,15 @@ button:active {
   box-shadow: none;
 }
 
+.quiz-card .quiz-label {
+  margin: 0 145px 18px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-wrap: balance;
+}
+
 /* 上一題下一題 */
 .navigation {
   margin-top: 24px;
@@ -256,13 +265,18 @@ hr {
 /* Quiz */
 .quiz-options {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  justify-items: center;
   gap: 12px;
 
   margin-top: 25px;
 }
 
 .quiz-options button {
+  box-sizing: border-box;
+  width: 10em;
+  max-width: calc(100% - 8px);
+  overflow-wrap: anywhere;
   min-height: 55px;
 
   background:
@@ -359,7 +373,8 @@ hr {
     display: none;
   }
 
-  .card .category-name {
+  .card .category-name,
+  .quiz-card .quiz-label {
     margin: 0 52px 18px;
     min-height: 44px;
     display: flex;

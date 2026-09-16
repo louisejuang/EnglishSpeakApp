@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Huninn&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=quiz-equal-width-11">
+  <link rel="stylesheet" href="style.css?v=speaking-record-button-27">
 </head>
 
 <body>
@@ -18,9 +18,11 @@
     <p class="subtitle">每天學一點，旅行多一點自信 ✈️</p>
 
     <div class="tabs">
+      <button onclick="showDailyMode()">☀️ 每日一學</button>
       <button onclick="showStudyMode()">📚 單字補給站</button>
       <button onclick="showQuizMode()">📝 單字小挑戰</button>
       <button onclick="showSpeakingMode()">🎤 開口練一練</button>
+      <button onclick="showTranslationMode()">🌐 即時翻譯</button>
     </div>
 
     <!-- 單字學習區 -->
@@ -49,8 +51,8 @@
 
         <p id="meaning" class="meaning">護照</p>
 
-        <button onclick="playWord()">
-          🔊 聽聽怎麼念
+        <button class="listen-button" onclick="playWord()">
+          🔊 聽聽單字
         </button>
 
         <hr>
@@ -63,7 +65,7 @@
           請出示你的護照。
         </p>
 
-        <button onclick="playExample()">
+        <button class="listen-button" onclick="playExample()">
           🔊 聽聽這一句
         </button>
 
@@ -79,11 +81,11 @@
 
         <h2>❤️ 我的單字口袋</h2>
 
-        <button onclick="showFavorites()">
+        <button id="favoriteListButton" onclick="toggleFavoritesList()" aria-expanded="false" aria-controls="favoriteList">
           打開單字口袋
         </button>
 
-        <div id="favoriteList"></div>
+        <div id="favoriteList" class="hidden"></div>
 
       </div>
 
@@ -109,10 +111,6 @@
         <div id="quizOptions" class="quiz-options"></div>
 
         <p id="quizResult"></p>
-
-        <p id="score">
-          答對題數：0 / 0
-        </p>
 
         <button
           id="nextQuestionButton"
@@ -149,16 +147,22 @@
 
     <br>
 
+    <p id="listeningStatus" role="status">
+      準備好了嗎？點嘴巴按鈕，開口試試吧！
+    </p>
+
     <button
       class="mic-button"
+      id="speakingRecordButton" aria-pressed="false"
       onclick="startSpeakingPractice()"
+      aria-label="換我說說看"
+      title="換我說說看"
     >
-      🎤 換我說說看
+      <span aria-hidden="true">👄</span>
+      <span id="speakingRecordLabel" class="record-label">換我說說看</span>
     </button>
-
-    <p id="listeningStatus">
-      準備好了嗎？點麥克風，開口試試吧！
-    </p>
+    <button id="playRecordingButton" type="button" onclick="playSpeakingRecording()" disabled>▶ 播放我的錄音</button>
+    <audio id="speakingRecording" preload="metadata"></audio>
 
     <div id="spokenResult"></div>
 
@@ -170,7 +174,67 @@
 
 </div>
 
-  <script src="app.js?v=quiz-pocket-7"></script>
+    <div id="dailyMode" class="hidden">
+      <div class="card daily-card">
+        <h2>☀️ 每日一學</h2>
+        <p id="dailyDate" class="category-name"></p>
+        <p class="translation-hint">一天一個單字、一句英文，慢慢累積旅行的自信</p>
+        <section aria-labelledby="dailyWordHeading">
+          <h3 id="dailyWordHeading" class="daily-label">今日單字</h3>
+          <p id="dailyWord" class="daily-word" lang="en"></p>
+          <p id="dailyMeaning" class="meaning"></p>
+          <button type="button" onclick="playDailyText('dailyWord')">🔊 聽聽單字</button>
+        </section>
+        <hr>
+        <section aria-labelledby="dailySentenceHeading">
+          <h3 id="dailySentenceHeading" class="daily-label">今日句子</h3>
+          <p id="dailySentence" class="daily-sentence" lang="en"></p>
+          <p id="dailySentenceMeaning" class="daily-sentence-meaning"></p>
+          <button type="button" class="listen-button" onclick="playDailyText('dailySentence')">🔊 聽聽這一句</button>
+        </section>
+        <p class="translation-hint daily-footer">依裝置日期每日更新，今天可以反覆練習。</p>
+      </div>
+    </div>
+
+    <div id="translationMode" class="hidden">
+      <div class="translation-card">
+        <h2>🌐 即時翻譯</h2>
+        <p class="translation-hint">打字、手寫輸入或說一句，讓旅行溝通更輕鬆。</p>
+
+        <div class="translation-languages">
+          <label for="translationDirection">翻譯方向</label>
+          <select id="translationDirection" onchange="changeTranslationDirection()">
+            <option value="zh-TW|en">繁體中文 → 英文</option>
+            <option value="en|zh-TW">英文 → 繁體中文</option>
+          </select>
+        </div>
+
+        <label class="translation-input-label" for="translationInput">想翻譯的內容</label>
+        <textarea id="translationInput" rows="4" maxlength="150"
+          placeholder="例如：請問洗手間在哪裡？" aria-describedby="translationInputHint"></textarea>
+        <p id="translationInputHint" class="translation-hint">每次最多 150 個字。手寫請切換裝置鍵盤的手寫模式，再在上方輸入。</p>
+
+        <div class="translation-actions">
+          <button type="button" onclick="focusTranslationInput()">⌨️ 輸入／手寫</button>
+          <button type="button" id="translationMicButton" onclick="toggleTranslationVoice()" aria-pressed="false">🎤 語音輸入</button>
+          <button type="button" onclick="clearTranslation()">清空</button>
+        </div>
+        <p id="translationVoiceStatus" class="translation-hint" role="status"></p>
+
+        <button type="button" id="translateButton" onclick="translateText()">翻譯這一句</button>
+        <p id="translationStatus" role="status" aria-live="polite"></p>
+
+        <div class="translation-output">
+          <h3>翻譯結果</h3>
+          <p id="translationResult" aria-live="polite">譯文會顯示在這裡。</p>
+          <button type="button" id="translationSpeakButton" onclick="speakTranslation()" disabled>🔊 聽聽譯文</button>
+        </div>
+        <p class="translation-hint">翻譯需要網路，文字會傳送至 <a href="https://mymemory.translated.net/" target="_blank" rel="noopener noreferrer">MyMemory</a>，免費服務有每日額度。語音需允許麥克風，並由瀏覽器提供辨識服務。</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=speaking-recording-26"></script>
 
 </body>
 </html>

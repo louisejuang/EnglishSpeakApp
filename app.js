@@ -1215,12 +1215,14 @@ let currentIndex = 0;
 let favorites =
   JSON.parse(localStorage.getItem("favorites")) || [];
 
-let score = 0;
-let totalQuestions = 0;
 let currentQuizWord = null;
 let answered = false;
 
 function showStudyMode() {
+
+  hideDailyMode();
+
+  hideTranslationMode();
 
   document
     .getElementById("studyMode")
@@ -1237,6 +1239,10 @@ function showStudyMode() {
 
 function showQuizMode() {
 
+  hideDailyMode();
+
+  hideTranslationMode();
+
   document
     .getElementById("studyMode")
     .classList.add("hidden");
@@ -1249,17 +1255,9 @@ function showQuizMode() {
     .getElementById("speakingMode")
     .classList.add("hidden");
 
-  score = 0;
-  totalQuestions = 0;
-
-  updateScore();
   createQuizQuestion();
 }
 
-  score = 0;
-  totalQuestions = 0;
-
-  updateScore();
   createQuizQuestion();
 
 function showWord() {
@@ -1392,7 +1390,7 @@ function toggleFavorite(current = vocabulary[currentCategory][currentIndex]) {
   );
 
   updateFavoriteButton();
-  if (document.getElementById("favoriteList").innerHTML !== "") {
+  if (!document.getElementById("favoriteList").classList.contains("hidden")) {
     showFavorites();
   }
 }
@@ -1423,6 +1421,22 @@ function renderFavoriteButton(buttonId, current) {
   button.setAttribute("aria-label", exists ? "從口袋移除" : "收進口袋");
   button.setAttribute("aria-pressed", String(exists));
   button.title = exists ? "從口袋移除" : "收進口袋";
+}
+
+function toggleFavoritesList() {
+  const list = document.getElementById("favoriteList");
+  const button = document.getElementById("favoriteListButton");
+  const opening = list.classList.contains("hidden");
+
+  if (opening) {
+    showFavorites();
+    list.classList.remove("hidden");
+  } else {
+    list.classList.add("hidden");
+  }
+
+  button.textContent = opening ? "關閉單字口袋" : "打開單字口袋";
+  button.setAttribute("aria-expanded", String(opening));
 }
 
 function showFavorites() {
@@ -1536,7 +1550,6 @@ function checkQuizAnswer(button, selectedAnswer) {
   }
 
   answered = true;
-  totalQuestions++;
 
   const buttons =
     document.querySelectorAll(
@@ -1558,8 +1571,6 @@ function checkQuizAnswer(button, selectedAnswer) {
     currentQuizWord.meaning
   ) {
 
-    score++;
-
     document.getElementById(
       "quizResult"
     ).innerText =
@@ -1576,8 +1587,6 @@ function checkQuizAnswer(button, selectedAnswer) {
       currentQuizWord.meaning;
   }
 
-  updateScore();
-
   document
     .getElementById("nextQuestionButton")
     .classList.remove("hidden");
@@ -1585,15 +1594,6 @@ function checkQuizAnswer(button, selectedAnswer) {
 
 function nextQuestion() {
   createQuizQuestion();
-}
-
-function updateScore() {
-
-  document.getElementById("score").innerText =
-    "答對題數：" +
-    score +
-    " / " +
-    totalQuestions;
 }
 
 function shuffleArray(array) {
@@ -1648,12 +1648,188 @@ const speakingSentences = [
   {
     sentence: "I have a reservation.",
     meaning: "我有預約。"
+  },
+  {
+    sentence: "Where is the check-in counter?",
+    meaning: "報到櫃檯在哪裡？"
+  },
+  {
+    sentence: "Here is my passport.",
+    meaning: "這是我的護照。"
+  },
+  {
+    sentence: "Can I have a window seat?",
+    meaning: "可以給我靠窗的座位嗎？"
+  },
+  {
+    sentence: "Which gate should I go to?",
+    meaning: "我應該去哪個登機門？"
+  },
+  {
+    sentence: "What time does boarding start?",
+    meaning: "幾點開始登機？"
+  },
+  {
+    sentence: "Is my flight delayed?",
+    meaning: "我的班機延誤了嗎？"
+  },
+  {
+    sentence: "Where can I collect my luggage?",
+    meaning: "我可以在哪裡領取行李？"
+  },
+  {
+    sentence: "My suitcase is missing.",
+    meaning: "我的行李箱不見了。"
+  },
+  {
+    sentence: "I am here on vacation.",
+    meaning: "我是來這裡度假的。"
+  },
+  {
+    sentence: "Where can I exchange money?",
+    meaning: "我可以在哪裡換錢？"
+  },
+  {
+    sentence: "What time is check-out?",
+    meaning: "退房時間是幾點？"
+  },
+  {
+    sentence: "Is breakfast included?",
+    meaning: "房價包含早餐嗎？"
+  },
+  {
+    sentence: "What is the Wi-Fi password?",
+    meaning: "無線網路密碼是什麼？"
+  },
+  {
+    sentence: "Could I have an extra towel?",
+    meaning: "可以再給我一條毛巾嗎？"
+  },
+  {
+    sentence: "The air conditioner is not working.",
+    meaning: "冷氣壞了。"
+  },
+  {
+    sentence: "Could you clean my room, please?",
+    meaning: "可以請你幫我打掃房間嗎？"
+  },
+  {
+    sentence: "Can I leave my luggage here?",
+    meaning: "我可以把行李寄放在這裡嗎？"
+  },
+  {
+    sentence: "Could you call a taxi for me?",
+    meaning: "可以幫我叫一輛計程車嗎？"
+  },
+  {
+    sentence: "A table for two, please.",
+    meaning: "麻煩安排兩個人的座位。"
+  },
+  {
+    sentence: "What do you recommend?",
+    meaning: "你推薦什麼？"
+  },
+  {
+    sentence: "I would like to order this.",
+    meaning: "我想點這個。"
+  },
+  {
+    sentence: "Could I have some water, please?",
+    meaning: "可以給我一些水嗎？"
+  },
+  {
+    sentence: "I am allergic to peanuts.",
+    meaning: "我對花生過敏。"
+  },
+  {
+    sentence: "Could you make it less spicy?",
+    meaning: "可以做得不那麼辣嗎？"
+  },
+  {
+    sentence: "Could we have the bill, please?",
+    meaning: "可以幫我們結帳嗎？"
+  },
+  {
+    sentence: "Can I get this to go?",
+    meaning: "這個可以外帶嗎？"
+  },
+  {
+    sentence: "How do I get to the museum?",
+    meaning: "請問博物館怎麼走？"
+  },
+  {
+    sentence: "Is it within walking distance?",
+    meaning: "走路可以到嗎？"
+  },
+  {
+    sentence: "Which bus goes to the city center?",
+    meaning: "哪一班公車會到市中心？"
+  },
+  {
+    sentence: "Does this train go to the airport?",
+    meaning: "這班火車會到機場嗎？"
+  },
+  {
+    sentence: "I would like a one-way ticket.",
+    meaning: "我想買一張單程票。"
+  },
+  {
+    sentence: "Where should I get off?",
+    meaning: "我應該在哪裡下車？"
+  },
+  {
+    sentence: "Please take me to this address.",
+    meaning: "請載我到這個地址。"
+  },
+  {
+    sentence: "How long does it take to get there?",
+    meaning: "到那裡需要多久？"
+  },
+  {
+    sentence: "Can I try this on?",
+    meaning: "我可以試穿這件嗎？"
+  },
+  {
+    sentence: "Do you have this in a larger size?",
+    meaning: "這款有大一點的尺寸嗎？"
+  },
+  {
+    sentence: "Do you have this in another color?",
+    meaning: "這款有其他顏色嗎？"
+  },
+  {
+    sentence: "Could I have a receipt, please?",
+    meaning: "可以給我收據嗎？"
+  },
+  {
+    sentence: "Where can I apply for a tax refund?",
+    meaning: "我可以在哪裡申請退稅？"
+  },
+  {
+    sentence: "Could you speak more slowly, please?",
+    meaning: "可以請你說慢一點嗎？"
+  },
+  {
+    sentence: "Could you say that again?",
+    meaning: "可以請你再說一次嗎？"
+  },
+  {
+    sentence: "Could you help me, please?",
+    meaning: "可以請你幫幫我嗎？"
+  },
+  {
+    sentence: "Where is the nearest pharmacy?",
+    meaning: "最近的藥局在哪裡？"
   }
 ];
 
 let speakingIndex = 0;
 
 function showSpeakingMode() {
+
+  hideDailyMode();
+
+  hideTranslationMode();
 
   document
     .getElementById("studyMode")
@@ -1688,7 +1864,7 @@ function showSpeakingSentence() {
   document
     .getElementById("listeningStatus")
     .innerText =
-    "準備好了嗎？點麥克風，開口試試吧！";
+    "準備好了嗎？點嘴巴按鈕，開口試試吧！";
 
   document
     .getElementById("spokenResult")
@@ -1696,6 +1872,7 @@ function showSpeakingSentence() {
 }
 
 function nextSpeakingSentence() {
+  stopSpeakingPractice(true);
 
   speakingIndex++;
 
@@ -1710,6 +1887,8 @@ function nextSpeakingSentence() {
 }
 
 function playSpeakingSentence() {
+  stopSpeakingPractice();
+  document.getElementById("speakingRecording").pause();
 
   const current =
     speakingSentences[speakingIndex];
@@ -1726,64 +1905,131 @@ function playSpeakingSentence() {
   speechSynthesis.speak(speech);
 }
 
-function startSpeakingPractice() {
+let speakingSession = null;
+let speakingRecordingUrl = "";
 
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
+function clearSpeakingRecording() {
+  const audio = document.getElementById("speakingRecording");
+  audio.pause();
+  audio.removeAttribute("src");
+  audio.load();
+  if (speakingRecordingUrl) URL.revokeObjectURL(speakingRecordingUrl);
+  speakingRecordingUrl = "";
+  document.getElementById("playRecordingButton").disabled = true;
+}
 
-  if (!SpeechRecognition) {
+function stopSpeakingPractice(discard = false) {
+  const session = speakingSession;
+  if (session) {
+    session.discard = discard;
+    session.stopped = true;
+    clearTimeout(session.timer);
+    if (session.recognition) session.recognition.abort();
+    if (session.recorder?.state === "recording") session.recorder.stop();
+    session.stream?.getTracks().forEach(track => track.stop());
+    if (discard || !session.recorder) speakingSession = null;
+  }
+  document.getElementById("speakingRecordButton").setAttribute("aria-pressed", "false");
+  document.getElementById("speakingRecordLabel").textContent = "換我說說看";
+  if (discard) clearSpeakingRecording();
+}
 
-    alert(
-      "這個瀏覽器還不能陪你練口說，換用 Chrome 試試吧！"
-    );
-
+async function startSpeakingPractice() {
+  if (speakingSession) {
+    stopSpeakingPractice();
     return;
   }
-
-  const recognition =
-    new SpeechRecognition();
-
-  recognition.lang = "en-US";
-
-  recognition.interimResults = false;
-
-  recognition.maxAlternatives = 1;
-
-  document
-    .getElementById("listeningStatus")
-    .innerText =
-    "🎤 我在聽，慢慢說就好…";
-
-  recognition.start();
-
-  recognition.onresult =
-    function(event) {
-
-      const spoken =
-        event.results[0][0].transcript;
-
-      checkSpeakingAnswer(spoken);
+  const status = document.getElementById("listeningStatus");
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+    status.textContent = "此瀏覽器無法錄音，請使用支援錄音的瀏覽器，並以 HTTPS 或 localhost 開啟。";
+    return;
+  }
+  clearSpeakingRecording();
+  window.speechSynthesis?.cancel();
+  document.getElementById("spokenResult").textContent = "";
+  const session = { chunks: [], stopped: false, discard: false };
+  speakingSession = session;
+  status.textContent = "請允許使用麥克風，準備錄音…";
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    if (speakingSession !== session || session.stopped) {
+      stream.getTracks().forEach(track => track.stop());
+      return;
+    }
+    session.stream = stream;
+    const recorder = new window.MediaRecorder(stream);
+    session.recorder = recorder;
+    recorder.ondataavailable = event => {
+      if (event.data.size) session.chunks.push(event.data);
     };
-
-  recognition.onerror =
-    function(event) {
-
-      document
-        .getElementById("listeningStatus")
-        .innerText =
-        "🎤 這次沒能順利辨識，再試試吧！原因：" +
-        event.error;
+    recorder.onstop = () => {
+      stream.getTracks().forEach(track => track.stop());
+      clearTimeout(session.timer);
+      if (session.discard || speakingSession !== session) return;
+      speakingSession = null;
+      const blob = new Blob(session.chunks, { type: recorder.mimeType });
+      if (blob.size) {
+        speakingRecordingUrl = URL.createObjectURL(blob);
+        document.getElementById("speakingRecording").src = speakingRecordingUrl;
+        document.getElementById("playRecordingButton").disabled = false;
+        status.textContent = session.message || "錄音完成，點播放按鈕聽聽自己的聲音！";
+      } else {
+        status.textContent = "沒有錄到聲音，請再試一次。";
+      }
+      document.getElementById("speakingRecordButton").setAttribute("aria-pressed", "false");
+      document.getElementById("speakingRecordLabel").textContent = "換我說說看";
     };
-
-  recognition.onend =
-    function() {
-
-      document
-        .getElementById("listeningStatus")
-        .innerText =
-        "這次聆聽結束囉，想再練就點麥克風！";
+    recorder.onerror = () => {
+      if (speakingSession !== session) return;
+      stopSpeakingPractice(true);
+      status.textContent = "錄音失敗，請確認麥克風後再試。";
     };
+    recorder.start();
+    document.getElementById("speakingRecordButton").setAttribute("aria-pressed", "true");
+    document.getElementById("speakingRecordLabel").textContent = "點一下停止錄音";
+    status.textContent = "正在錄音，慢慢說就好；說完可再點嘴巴停止（最多 60 秒）。";
+    session.timer = setTimeout(() => stopSpeakingPractice(), 60000);
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (Recognition) {
+      const recognition = new Recognition();
+      session.recognition = recognition;
+      recognition.lang = "en-US";
+      recognition.interimResults = false;
+      recognition.onresult = event => {
+        if (speakingSession !== session || session.stopped) return;
+        checkSpeakingAnswer(event.results[0][0].transcript);
+      };
+      recognition.onerror = () => {
+        if (speakingSession !== session || session.stopped) return;
+        session.message = "語音辨識未成功，仍可播放錄音回聽。";
+      };
+      recognition.onend = () => {
+        if (speakingSession === session && !session.stopped) stopSpeakingPractice();
+      };
+      try { recognition.start(); } catch {
+        session.recognition = null;
+        status.textContent = "正在錄音；語音辨識暫時無法使用，說完請點嘴巴停止。";
+      }
+    }
+  } catch (error) {
+    if (speakingSession !== session) return;
+    stopSpeakingPractice(true);
+    status.textContent = error.name === "NotAllowedError"
+      ? "麥克風未獲允許，請在瀏覽器網站設定中開啟權限。"
+      : "無法開始錄音，請確認麥克風已連接且可使用。";
+  }
+}
+
+async function playSpeakingRecording() {
+  if (!speakingRecordingUrl || speakingSession) return;
+  const audio = document.getElementById("speakingRecording");
+  window.speechSynthesis?.cancel();
+  audio.currentTime = 0;
+  try {
+    await audio.play();
+  } catch {
+    document.getElementById("listeningStatus").textContent = "無法播放這段錄音，請重試或重新錄音。";
+  }
 }
 
 function normalizeText(text) {
@@ -1884,3 +2130,299 @@ function calculateSimilarity(
 }
 
 showWord();
+
+/* 即時翻譯：文字與裝置手寫鍵盤共用輸入框。 */
+let translationTimer;
+let translationRequest = null;
+let translationVersion = 0;
+let translationComposing = false;
+let translationRecognition = null;
+let translatedText = "";
+let translatedLanguage = "";
+const translationCache = new Map();
+const translationInput = document.getElementById("translationInput");
+
+function cancelTranslationRequest() {
+  clearTimeout(translationTimer);
+  translationVersion++;
+  if (translationRequest) translationRequest.abort();
+  translationRequest = null;
+  document.getElementById("translateButton").disabled = false;
+  document.getElementById("translationResult").setAttribute("aria-busy", "false");
+}
+
+function resetTranslationResult() {
+  translatedText = "";
+  translatedLanguage = "";
+  document.getElementById("translationResult").textContent = "譯文會顯示在這裡。";
+  document.getElementById("translationSpeakButton").disabled = true;
+  document.getElementById("translationStatus").textContent = "";
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+}
+
+function hideTranslationMode() {
+  stopSpeakingPractice(true);
+  document.getElementById("translationMode").classList.add("hidden");
+  cancelTranslationRequest();
+  stopTranslationVoice();
+  document.getElementById("translationStatus").textContent = "";
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+}
+
+function showTranslationMode() {
+  hideDailyMode();
+  ["studyMode", "quizMode", "speakingMode"].forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+  document.getElementById("translationMode").classList.remove("hidden");
+}
+
+function focusTranslationInput() {
+  stopTranslationVoice();
+  translationInput.focus();
+}
+
+function scheduleTranslation() {
+  cancelTranslationRequest();
+  resetTranslationResult();
+  if (translationComposing || !translationInput.value.trim()) return;
+  document.getElementById("translationStatus").textContent = "停止輸入後會自動翻譯…";
+  translationTimer = setTimeout(translateText, 1000);
+}
+
+function changeTranslationDirection() {
+  stopTranslationVoice();
+  const isChinese = document.getElementById("translationDirection").value.startsWith("zh-TW");
+  translationInput.lang = isChinese ? "zh-TW" : "en";
+  translationInput.placeholder = isChinese ? "例如：請問洗手間在哪裡？" : "Example: Where is the restroom?";
+  scheduleTranslation();
+}
+
+function clearTranslation() {
+  stopTranslationVoice();
+  translationInput.value = "";
+  scheduleTranslation();
+  translationInput.focus();
+}
+
+async function translateText() {
+  cancelTranslationRequest();
+  if (translationComposing) return;
+  const text = translationInput.value.trim();
+  const status = document.getElementById("translationStatus");
+  resetTranslationResult();
+  if (!text) {
+    status.textContent = "先輸入或說一句想翻譯的內容吧！";
+    return;
+  }
+  if (text.length > 150 || new TextEncoder().encode(text).length > 500) {
+    status.textContent = "內容太長了，請縮短後分次翻譯（最多 150 個字）。";
+    return;
+  }
+  const direction = document.getElementById("translationDirection").value;
+  const cacheKey = direction + ":" + text;
+  const version = translationVersion;
+  const controller = new AbortController();
+  translationRequest = controller;
+  const timeout = setTimeout(() => controller.abort(), 15000);
+  document.getElementById("translateButton").disabled = true;
+  document.getElementById("translationResult").setAttribute("aria-busy", "true");
+  status.textContent = "正在翻譯…";
+  try {
+    let result = translationCache.get(cacheKey);
+    if (!result) {
+      const params = new URLSearchParams({ q: text, langpair: direction });
+      const response = await fetch("https://api.mymemory.translated.net/get?" + params, {
+        signal: controller.signal,
+        credentials: "omit"
+      });
+      if (response.status === 429) throw new Error("quota");
+      if (!response.ok) throw new Error("network");
+      const data = await response.json();
+      if (data.quotaFinished || Number(data.responseStatus) === 429) throw new Error("quota");
+      if (Number(data.responseStatus) !== 200 || typeof data.responseData?.translatedText !== "string" || !data.responseData.translatedText.trim()) {
+        throw new Error("service");
+      }
+      result = data.responseData.translatedText;
+      if (version !== translationVersion) return;
+      if (translationCache.size >= 30) translationCache.delete(translationCache.keys().next().value);
+      translationCache.set(cacheKey, result);
+    }
+    if (version !== translationVersion) return;
+    translatedText = result;
+    translatedLanguage = direction.split("|")[1];
+    document.getElementById("translationResult").textContent = result;
+    document.getElementById("translationSpeakButton").disabled = !window.speechSynthesis;
+    status.textContent = "";
+  } catch (error) {
+    if (version !== translationVersion) return;
+    status.textContent = error.message === "quota"
+      ? "今天的免費翻譯額度已用完，請稍後再試。"
+      : error.name === "AbortError"
+        ? "翻譯等太久了，請按「翻譯這一句」重試。"
+        : "目前無法連上翻譯服務，請確認網路後再試。";
+  } finally {
+    clearTimeout(timeout);
+    if (version === translationVersion) {
+      translationRequest = null;
+      document.getElementById("translateButton").disabled = false;
+      document.getElementById("translationResult").setAttribute("aria-busy", "false");
+    }
+  }
+}
+
+function stopTranslationVoice() {
+  const recognition = translationRecognition;
+  translationRecognition = null;
+  if (recognition) recognition.abort();
+  document.getElementById("translationMicButton").textContent = "🎤 語音輸入";
+  document.getElementById("translationMicButton").setAttribute("aria-pressed", "false");
+  document.getElementById("translationVoiceStatus").textContent = "";
+}
+
+function toggleTranslationVoice() {
+  if (translationRecognition) {
+    stopTranslationVoice();
+    return;
+  }
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const status = document.getElementById("translationVoiceStatus");
+  if (!Recognition) {
+    status.textContent = "此瀏覽器不支援語音輸入，請使用鍵盤的語音／手寫輸入。";
+    return;
+  }
+  cancelTranslationRequest();
+  document.getElementById("translationStatus").textContent = "";
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  const recognition = new Recognition();
+  translationRecognition = recognition;
+  recognition.lang = document.getElementById("translationDirection").value.startsWith("zh-TW") ? "zh-TW" : "en-US";
+  recognition.interimResults = false;
+  recognition.continuous = false;
+  let receivedResult = false;
+  let failed = false;
+  recognition.onresult = event => {
+    if (translationRecognition !== recognition) return;
+    receivedResult = true;
+    const spoken = event.results[0][0].transcript;
+    translationInput.value = spoken;
+    scheduleTranslation();
+    status.textContent = "已填入說話內容，可修改後再翻譯。";
+  };
+  recognition.onerror = event => {
+    if (translationRecognition !== recognition) return;
+    failed = true;
+    const messages = {
+      "not-allowed": "麥克風未獲允許，請在瀏覽器網站設定中開啟權限。",
+      "service-not-allowed": "語音辨識服務無法使用，請改用鍵盤輸入。",
+      "audio-capture": "找不到可用的麥克風，請確認裝置已連接。",
+      "no-speech": "沒有聽到聲音，再按一次麥克風試試。",
+      "network": "語音辨識連線失敗，請確認網路後再試。"
+    };
+    status.textContent = messages[event.error] || "這次沒能辨識，請再試一次或使用鍵盤輸入。";
+  };
+  recognition.onend = () => {
+    if (translationRecognition !== recognition) return;
+    translationRecognition = null;
+    document.getElementById("translationMicButton").textContent = "🎤 語音輸入";
+    document.getElementById("translationMicButton").setAttribute("aria-pressed", "false");
+    if (!receivedResult && !failed) status.textContent = "聆聽已結束，可以再按一次麥克風。";
+  };
+  try {
+    recognition.start();
+    document.getElementById("translationMicButton").textContent = "⏹ 停止聆聽";
+    document.getElementById("translationMicButton").setAttribute("aria-pressed", "true");
+    status.textContent = "正在聆聽，請說出想翻譯的一句話…（會取代輸入框內容）";
+  } catch {
+    stopTranslationVoice();
+    status.textContent = "無法啟動麥克風，請確認權限後再試。";
+  }
+}
+
+function speakTranslation() {
+  if (!translatedText || !window.speechSynthesis) return;
+  stopTranslationVoice();
+  const speech = new SpeechSynthesisUtterance(translatedText);
+  speech.lang = translatedLanguage === "en" ? "en-US" : "zh-TW";
+  speech.rate = 0.85;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(speech);
+}
+
+translationInput.addEventListener("compositionstart", () => {
+  translationComposing = true;
+  stopTranslationVoice();
+  cancelTranslationRequest();
+  resetTranslationResult();
+});
+translationInput.addEventListener("compositionend", () => {
+  translationComposing = false;
+  scheduleTranslation();
+});
+translationInput.addEventListener("input", () => {
+  stopTranslationVoice();
+  scheduleTranslation();
+});
+window.addEventListener("pagehide", () => {
+  stopSpeakingPractice(true);
+  cancelTranslationRequest();
+  stopTranslationVoice();
+});
+
+/* 每日一學：以裝置當地日期輪替，同一天重新整理也維持相同內容。 */
+let dailyRefreshTimer;
+
+function getDailyLesson(date = new Date()) {
+  const dayNumber = Math.floor(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()) / 86400000);
+  const words = getAllWords();
+  const indexFor = length => ((dayNumber % length) + length) % length;
+  return {
+    word: words[indexFor(words.length)],
+    sentence: speakingSentences[indexFor(speakingSentences.length)],
+    dateLabel: `${date.getFullYear()} 年 ${date.getMonth() + 1} 月 ${date.getDate()} 日`
+  };
+}
+
+function hideDailyMode() {
+  stopSpeakingPractice(true);
+  clearTimeout(dailyRefreshTimer);
+  document.getElementById("dailyMode").classList.add("hidden");
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+}
+
+function showDailyMode() {
+  hideTranslationMode();
+  ["studyMode", "quizMode", "speakingMode"].forEach(id => {
+    document.getElementById(id).classList.add("hidden");
+  });
+  document.getElementById("dailyMode").classList.remove("hidden");
+  renderDailyLesson();
+}
+
+function renderDailyLesson() {
+  clearTimeout(dailyRefreshTimer);
+  const now = new Date();
+  const lesson = getDailyLesson(now);
+  document.getElementById("dailyDate").textContent = lesson.dateLabel;
+  document.getElementById("dailyWord").textContent = lesson.word.word;
+  document.getElementById("dailyMeaning").textContent = lesson.word.meaning;
+  document.getElementById("dailySentence").textContent = lesson.sentence.sentence;
+  document.getElementById("dailySentenceMeaning").textContent = lesson.sentence.meaning;
+  const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+  dailyRefreshTimer = setTimeout(renderDailyLesson, tomorrow.getTime() - now.getTime());
+}
+
+function playDailyText(elementId) {
+  if (!window.speechSynthesis) return;
+  const speech = new SpeechSynthesisUtterance(document.getElementById(elementId).textContent);
+  speech.lang = "en-US";
+  speech.rate = 0.8;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(speech);
+}
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && !document.getElementById("dailyMode").classList.contains("hidden")) {
+    renderDailyLesson();
+  }
+});

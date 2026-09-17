@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Huninn&family=LXGW+WenKai+TC:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=scenario-dialogue-font-34">
+  <link rel="stylesheet" href="style.css?v=separate-scores-40">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
     <p class="subtitle">每天學一點，旅行多一點自信 ✈️</p>
 
     <div class="tabs">
-      <button onclick="showDailyMode()">☀️ 每日一學</button>
+      <button onclick="showDailyMode()">📍 到此一遊</button>
       <button onclick="showStudyMode()">📚 單字補給站</button>
       <button onclick="showQuizMode()">📝 單字小挑戰</button>
       <button onclick="showSpeakingMode()">🎤 開口練一練</button>
@@ -27,7 +27,7 @@
     </div>
 
     <!-- 單字學習區 -->
-    <div id="studyMode">
+    <div id="studyMode" class="hidden">
 
       <div class="categories">
         <button onclick="changeCategory('airport')">✈️ 機場</button>
@@ -185,6 +185,7 @@
           <label for="travelScenario">選擇情境</label>
           <select id="travelScenario" onchange="renderTravelScenario()">
             <option value="0">✈️ 機場報到</option>
+            <option value="6">🛂 海關入關</option>
             <option value="1">🏨 飯店入住</option>
             <option value="2">🍽️ 餐廳點餐</option>
             <option value="3">🛍️ 購物試穿</option>
@@ -195,10 +196,43 @@
         <h3 id="travelTitle"></h3>
         <p id="travelDescription" class="translation-hint"></p>
         <div id="travelDialogue"></div>
+        <p id="travelPageInfo" class="translation-hint" role="status"></p>
+        <div class="navigation travel-pagination">
+          <button id="travelPreviousButton" type="button" onclick="changeTravelPage(-1)">← 上一頁</button>
+          <button id="travelNextButton" type="button" onclick="changeTravelPage(1)">下一頁 →</button>
+        </div>
       </div>
     </div>
 
-    <div id="dailyMode" class="hidden">
+    <div id="dailyHubTabs" class="daily-subtabs" aria-label="到此一遊">
+      <button id="dailyLearnTab" type="button" aria-pressed="true" onclick="showDailyMode()">☀️ 每日一學</button>
+      <button id="dailyChallengeTab" type="button" aria-pressed="false" onclick="showDailyChallengeMode()">🏆 每日挑戰</button>
+    </div>
+
+    <div id="dailyChallengeMode" class="hidden">
+      <div class="quiz-card daily-challenge-card">
+        <h2>🏆 每日挑戰</h2>
+        <p id="dailyChallengeDate" class="translation-hint"></p>
+        <p>每題 10 分・單字 10 題，滿分 100 分・句子 3 題，滿分 30 分</p>
+        <p id="dailyChallengeScores" role="status"></p>
+        <p id="dailyChallengeProgress" role="status"></p>
+        <div id="dailyChallengeQuestion">
+          <h3 id="dailyChallengeWord" lang="en"></h3>
+          <div id="dailyChallengeOptions" class="quiz-options"></div>
+        </div>
+        <p id="dailyChallengeFeedback" role="status"></p>
+        <button id="dailyChallengeNext" type="button" class="hidden" onclick="nextDailyChallengeQuestion()">下一題 →</button>
+        <div id="dailyChallengeSummary" class="hidden">
+          <div id="dailyChallengeCelebration" class="hidden" aria-hidden="true">🎉 🌟 🎊 🏆 🎊 🌟 🎉</div>
+          <p id="dailyChallengeScore" role="status"></p>
+          <p id="dailyChallengeMessage"></p>
+          <button type="button" onclick="restartDailyChallenge()">再挑戰一次</button>
+        </div>
+        <button type="button" class="daily-challenge-back" onclick="showDailyMode()">回到每日一學</button>
+      </div>
+    </div>
+
+    <div id="dailyMode">
       <div class="card daily-card">
         <h2>☀️ 每日一學</h2>
         <p id="dailyDate" class="category-name"></p>
@@ -257,7 +291,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=travel-scenarios-31"></script>
+  <script src="app.js?v=separate-scores-40"></script>
 
 </body>
 </html>

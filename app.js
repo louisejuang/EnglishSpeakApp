@@ -1325,6 +1325,7 @@ let currentQuizWord = null;
 let answered = false;
 
 function showStudyMode() {
+  hideDailyChallenge();
   document.getElementById("travelMode").classList.add("hidden");
 
   hideDailyMode();
@@ -1345,6 +1346,7 @@ function showStudyMode() {
 }
 
 function showQuizMode() {
+  hideDailyChallenge();
   document.getElementById("travelMode").classList.add("hidden");
 
   hideDailyMode();
@@ -1446,7 +1448,7 @@ function playWord() {
     new SpeechSynthesisUtterance(current.word);
 
   speech.lang = "en-US";
-  speech.rate = 0.8;
+  speech.rate = 0.65;
 
   speechSynthesis.cancel();
   speechSynthesis.speak(speech);
@@ -1461,7 +1463,7 @@ function playExample() {
     new SpeechSynthesisUtterance(current.example);
 
   speech.lang = "en-US";
-  speech.rate = 0.85;
+  speech.rate = 0.65;
 
   speechSynthesis.cancel();
   speechSynthesis.speak(speech);
@@ -1938,6 +1940,7 @@ const speakingSentences = [
 let speakingIndex = 0;
 
 function showSpeakingMode() {
+  hideDailyChallenge();
   document.getElementById("travelMode").classList.add("hidden");
 
   hideDailyMode();
@@ -2012,7 +2015,7 @@ function playSpeakingSentence() {
     );
 
   speech.lang = "en-US";
-  speech.rate = 0.85;
+  speech.rate = 0.65;
 
   speechSynthesis.cancel();
   speechSynthesis.speak(speech);
@@ -2282,6 +2285,7 @@ function hideTranslationMode() {
 }
 
 function showTranslationMode() {
+  hideDailyChallenge();
   document.getElementById("travelMode").classList.add("hidden");
   hideDailyMode();
   ["studyMode", "quizMode", "speakingMode"].forEach(id => {
@@ -2455,7 +2459,7 @@ function speakTranslation() {
   stopTranslationVoice();
   const speech = new SpeechSynthesisUtterance(translatedText);
   speech.lang = translatedLanguage === "en" ? "en-US" : "zh-TW";
-  speech.rate = 0.85;
+  speech.rate = translatedLanguage === "en" ? 0.65 : 0.85;
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(speech);
 }
@@ -2486,41 +2490,168 @@ const travelScenarios = [
     ["你", "I'd like to check in for my flight.", "我想辦理班機報到。"],
     ["地勤人員", "May I see your passport, please?", "可以請你出示護照嗎？"],
     ["你", "Here it is. Could I have a window seat?", "在這裡。可以給我靠窗的座位嗎？"],
-    ["地勤人員", "Certainly. Here is your boarding pass.", "當然可以。這是你的登機證。"]
+    ["地勤人員", "Certainly. Here is your boarding pass.", "當然可以。這是你的登機證。"],
+    ["你", "How many bags can I check in?", "我可以托運幾件行李？"],
+    ["地勤人員", "Your ticket includes one checked bag.", "你的機票包含一件托運行李。"],
+    ["你", "Can I take this backpack on board?", "我可以把這個背包帶上飛機嗎？"],
+    ["地勤人員", "Yes. Please place it under the seat in front of you.", "可以。請把它放在你前方的座位下。"],
+    ["你", "Which gate should I go to?", "我應該去哪個登機門？"],
+    ["地勤人員", "Your flight leaves from gate twelve.", "你的班機從十二號登機門出發。"],
+    ["你", "What time does boarding start?", "幾點開始登機？"],
+    ["地勤人員", "Boarding starts at nine thirty.", "九點半開始登機。"],
+    ["你", "Where is the security checkpoint?", "安全檢查站在哪裡？"],
+    ["地勤人員", "Go straight and follow the signs for departures.", "直走，然後沿著出境指示牌走。"],
+    ["你", "Do I need to show my boarding pass there?", "我需要在那裡出示登機證嗎？"],
+    ["地勤人員", "Yes. Please keep your passport ready too.", "是的。也請準備好護照。"],
+    ["你", "Is my flight on time?", "我的班機準時嗎？"],
+    ["地勤人員", "Yes, it is currently on time.", "是的，目前預計準時起飛。"],
+    ["你", "Thank you for your help.", "謝謝你的幫忙。"],
+    ["地勤人員", "You're welcome. Have a pleasant flight!", "不客氣。祝你飛行愉快！"]
   ] },
   { title: "🏨 飯店入住", description: "抵達飯店後，向櫃檯確認訂房與早餐資訊。", lines: [
     ["你", "Hello, I have a reservation under the name Chen.", "你好，我有訂房，訂房人姓陳。"],
     ["櫃檯人員", "Welcome! You booked a room for two nights, correct?", "歡迎！你訂了兩晚的房間，對嗎？"],
     ["你", "Yes. Is breakfast included?", "對。房價包含早餐嗎？"],
-    ["櫃檯人員", "Yes. Breakfast is served from seven to ten.", "有的。早餐供應時間是七點到十點。"]
+    ["櫃檯人員", "Yes. Breakfast is served from seven to ten.", "有的。早餐供應時間是七點到十點。"],
+    ["你", "Could I have a quiet room, please?", "可以給我一間安靜的房間嗎？"],
+    ["櫃檯人員", "We have a room away from the elevator.", "我們有一間離電梯較遠的房間。"],
+    ["你", "That sounds great. Which floor is it on?", "聽起來很好。在幾樓呢？"],
+    ["櫃檯人員", "It's on the fifth floor. Here is your key card.", "在五樓。這是你的房卡。"],
+    ["你", "What is the Wi-Fi password?", "無線網路密碼是什麼？"],
+    ["櫃檯人員", "It's printed on your key card holder.", "密碼印在你的房卡套上。"],
+    ["你", "Where is the breakfast room?", "早餐餐廳在哪裡？"],
+    ["櫃檯人員", "It's next to the lobby on the ground floor.", "在一樓大廳旁邊。"],
+    ["你", "Could I have an extra towel?", "可以再給我一條毛巾嗎？"],
+    ["櫃檯人員", "Of course. We'll send one to your room.", "當然。我們會送一條到你的房間。"],
+    ["你", "What time do I need to check out?", "我需要在幾點退房？"],
+    ["櫃檯人員", "Check-out is at eleven in the morning.", "退房時間是上午十一點。"],
+    ["你", "Can I leave my luggage here after check-out?", "退房後可以把行李寄放在這裡嗎？"],
+    ["櫃檯人員", "Yes, we can store it until you leave.", "可以，我們可以保管到你離開為止。"],
+    ["你", "Thank you. That's very helpful.", "謝謝，這對我很有幫助。"],
+    ["櫃檯人員", "You're welcome. Enjoy your stay!", "不客氣。祝你入住愉快！"]
   ] },
   { title: "🍽️ 餐廳點餐", description: "坐下後請服務生推薦餐點，再點一杯飲料。", lines: [
     ["你", "Could I have the menu, please?", "可以給我菜單嗎？"],
     ["服務生", "Of course. Our grilled fish is very popular.", "當然。我們的烤魚很受歡迎。"],
     ["你", "I'll have the grilled fish and a glass of water, please.", "我要一份烤魚和一杯水，謝謝。"],
-    ["服務生", "Certainly. Would you like anything else?", "好的。還需要其他東西嗎？"]
+    ["服務生", "Certainly. Would you like anything else?", "好的。還需要其他東西嗎？"],
+    ["你", "Does the fish come with rice?", "這份魚餐有附飯嗎？"],
+    ["服務生", "Yes, it comes with rice and vegetables.", "有的，會附飯和蔬菜。"],
+    ["你", "Is the sauce spicy?", "醬汁會辣嗎？"],
+    ["服務生", "A little. We can serve it on the side.", "有一點。我們可以把醬汁另外放。"],
+    ["你", "Yes, please put the sauce on the side.", "好的，請把醬汁另外放。"],
+    ["服務生", "Of course. Anything to drink besides water?", "當然。除了水，還要其他飲料嗎？"],
+    ["你", "I'd like an iced tea without sugar.", "我想要一杯無糖冰茶。"],
+    ["服務生", "Certainly. Your meal will be ready shortly.", "好的。餐點很快就會準備好。"],
+    ["你", "Excuse me, could I have a fork?", "不好意思，可以給我一支叉子嗎？"],
+    ["服務生", "Here you are. Enjoy your meal!", "這裡給你。請慢用！"],
+    ["你", "The food was delicious. Could I have the bill?", "餐點很好吃。可以幫我結帳嗎？"],
+    ["服務生", "Of course. Here is your bill.", "當然。這是你的帳單。"],
+    ["你", "Can I pay by credit card?", "我可以用信用卡付款嗎？"],
+    ["服務生", "Yes. Please tap your card here.", "可以。請在這裡感應卡片。"],
+    ["你", "Could I have a receipt, please?", "可以給我收據嗎？"],
+    ["服務生", "Here is your receipt. Thank you for coming!", "這是你的收據。謝謝光臨！"]
   ] },
   { title: "🛍️ 購物試穿", description: "看到喜歡的上衣，詢問尺寸並找試衣間。", lines: [
     ["你", "Do you have this shirt in a medium?", "這件上衣有中號的嗎？"],
     ["店員", "Yes, here you are.", "有的，這件給你。"],
     ["你", "Thank you. Can I try it on?", "謝謝。我可以試穿嗎？"],
-    ["店員", "Of course. The fitting rooms are over there.", "當然可以。試衣間在那邊。"]
+    ["店員", "Of course. The fitting rooms are over there.", "當然可以。試衣間在那邊。"],
+    ["你", "This one is a little tight.", "這件有一點緊。"],
+    ["店員", "Would you like to try a large?", "你想試試大號的嗎？"],
+    ["你", "Yes, please. Do you have it in blue?", "好，麻煩你。這款有藍色的嗎？"],
+    ["店員", "Yes, I'll get one for you.", "有的，我拿一件給你。"],
+    ["你", "This fits well. How much is it?", "這件很合身。多少錢呢？"],
+    ["店員", "It's thirty dollars.", "三十元。"],
+    ["你", "Is it on sale?", "這件有特價嗎？"],
+    ["店員", "Yes, that price includes a discount.", "有的，這已經是折扣後的價格。"],
+    ["你", "What material is it made of?", "這件是什麼材質做的？"],
+    ["店員", "It's made of cotton.", "這件是棉製的。"],
+    ["你", "I'll take it. Can I pay by card?", "我要買這件。可以刷卡嗎？"],
+    ["店員", "Certainly. Please come to the checkout.", "當然。請到收銀台。"],
+    ["你", "Can I return it if it doesn't fit?", "如果不合身，可以退貨嗎？"],
+    ["店員", "Yes, within fourteen days with the receipt and tags.", "可以，請在十四天內帶著收據和吊牌辦理。"],
+    ["你", "Thank you. Could I have a bag?", "謝謝。可以給我一個袋子嗎？"],
+    ["店員", "Of course. Here you go!", "當然。這裡給你！"]
   ] },
   { title: "🚆 搭車問路", description: "在車站詢問前往市中心的列車與下車站。", lines: [
     ["你", "Excuse me, does this train go to the city center?", "不好意思，這班火車會到市中心嗎？"],
     ["站務人員", "Yes. Take the train from platform two.", "會的。請搭第二月台的列車。"],
     ["你", "Which station should I get off at?", "我應該在哪一站下車？"],
-    ["站務人員", "Get off at Central Station. It's three stops away.", "在中央車站下車，再三站就到了。"]
+    ["站務人員", "Get off at Central Station. It's three stops away.", "在中央車站下車，再三站就到了。"],
+    ["你", "Where can I buy a ticket?", "我可以在哪裡買票？"],
+    ["站務人員", "Use the ticket machines beside the entrance.", "請使用入口旁的自動售票機。"],
+    ["你", "Can I use my transit card instead?", "我可以改用交通儲值卡嗎？"],
+    ["站務人員", "Yes. Just tap it at the gate.", "可以。在閘門感應卡片就行了。"],
+    ["你", "How long does the journey take?", "這段車程要多久？"],
+    ["站務人員", "It takes about fifteen minutes.", "大約十五分鐘。"],
+    ["你", "Do I need to change trains?", "我需要轉車嗎？"],
+    ["站務人員", "No, this train goes there directly.", "不用，這班列車可以直接到達。"],
+    ["你", "Is there an elevator to the platform?", "有電梯可以到月台嗎？"],
+    ["站務人員", "Yes, it's just around the corner.", "有的，就在轉角處。"],
+    ["你", "Which exit is closest to the museum?", "哪個出口離博物館最近？"],
+    ["站務人員", "Take exit two at Central Station.", "請從中央車站的二號出口出去。"],
+    ["你", "What time is the last train back?", "回程的末班車是幾點？"],
+    ["站務人員", "The last train leaves at eleven thirty tonight.", "今晚末班車十一點半出發。"],
+    ["你", "Thank you for the directions.", "謝謝你指路。"],
+    ["站務人員", "You're welcome. Have a nice trip!", "不客氣。祝你旅途愉快！"]
   ] },
   { title: "🆘 遺失物品求助", description: "發現背包不見了，向服務台描述物品並求助。", lines: [
     ["你", "Excuse me, I lost my backpack. Could you help me?", "不好意思，我的背包不見了。可以幫幫我嗎？"],
     ["服務台人員", "What does your backpack look like?", "你的背包是什麼樣子的？"],
     ["你", "It's a small blue backpack with a white tag.", "那是一個藍色小背包，上面有白色吊牌。"],
-    ["服務台人員", "Let's check the lost and found.", "我們去失物招領處查查看。"]
+    ["服務台人員", "Let's check the lost and found.", "我們去失物招領處查查看。"],
+    ["服務台人員", "Where did you last see it?", "你最後在哪裡看到它？"],
+    ["你", "I left it on a bench near the entrance.", "我把它留在入口附近的長椅上。"],
+    ["服務台人員", "What time was that?", "那大概是幾點？"],
+    ["你", "About half an hour ago.", "大約半小時前。"],
+    ["服務台人員", "What was inside the backpack?", "背包裡有哪些東西？"],
+    ["你", "A jacket, a water bottle, and a guidebook.", "一件外套、一個水壺和一本旅遊指南。"],
+    ["服務台人員", "Was your passport inside?", "你的護照也在裡面嗎？"],
+    ["你", "No, I have my passport with me.", "沒有，護照在我身上。"],
+    ["服務台人員", "Could you fill out this form?", "可以請你填寫這張表格嗎？"],
+    ["你", "Sure. Should I write my phone number here?", "好的。我應該在這裡填電話號碼嗎？"],
+    ["服務台人員", "Yes, and please include your email address.", "是的，也請填上電子郵件地址。"],
+    ["你", "Here you are. Please let me know if you find it.", "填好了。如果找到，請通知我。"],
+    ["服務台人員", "Actually, someone just brought in a blue backpack.", "剛好有人送來一個藍色背包。"],
+    ["你", "That's mine! The white tag has my name on it.", "那是我的！白色吊牌上有我的名字。"],
+    ["服務台人員", "Please show your ID so we can confirm it belongs to you.", "請出示證件，讓我們確認是你的物品。"],
+    ["你", "Of course. Thank you so much for your help.", "當然。非常感謝你的幫忙。"]
   ] }
 ];
 
+travelScenarios.push({
+  title: "🛂 海關入關",
+  description: "抵達目的地後，先練習入境查驗，再練習領取行李後的海關申報對話。",
+  lines: [
+    ["入境審查人員", "May I see your passport, please?", "可以請你出示護照嗎？"],
+    ["你", "Of course. Here is my passport.", "當然。這是我的護照。"],
+    ["入境審查人員", "What is the purpose of your visit?", "你這次入境的目的是什麼？"],
+    ["你", "I'm here on vacation.", "我是來度假的。"],
+    ["入境審查人員", "How long will you be staying?", "你預計停留多久？"],
+    ["你", "I'll be staying for seven days.", "我會停留七天。"],
+    ["入境審查人員", "Where will you be staying?", "你會住在哪裡？"],
+    ["你", "I'll be staying at a hotel. Here is my reservation.", "我會住在飯店。這是我的訂房資料。"],
+    ["入境審查人員", "Do you have a return ticket?", "你有回程機票嗎？"],
+    ["你", "Yes. My return flight is next Friday.", "有的。我的回程班機是下週五。"],
+    ["入境審查人員", "Are you traveling alone?", "你是一個人旅行嗎？"],
+    ["你", "No, I'm traveling with my family.", "不是，我和家人一起旅行。"],
+    ["海關人員", "Do you have anything to declare?", "你有任何需要申報的物品嗎？"],
+    ["你", "I'm carrying some packaged snacks. Do I need to declare them?", "我帶了一些包裝零食。需要申報嗎？"],
+    ["海關人員", "What kind of snacks are they?", "是什麼種類的零食？"],
+    ["你", "They are cookies. The ingredients are listed on the package.", "是餅乾。包裝上有列出成分。"],
+    ["海關人員", "Could you open your bag so I can take a look?", "可以打開你的袋子，讓我檢查一下嗎？"],
+    ["你", "Of course. The cookies are in this bag.", "當然。餅乾在這個袋子裡。"],
+    ["海關人員", "Thank you. Please wait here while I check them.", "謝謝。檢查期間請在這裡稍候。"],
+    ["你", "Certainly. Please let me know if you need anything else.", "好的。如果還需要其他資料，請告訴我。"]
+  ]
+});
+
+let travelPage = 0;
+const travelPageSize = 4;
+
 function showTravelMode() {
+  hideDailyChallenge();
   hideDailyMode();
   hideTranslationMode();
   ["studyMode", "quizMode", "speakingMode"].forEach(id => {
@@ -2530,14 +2661,21 @@ function showTravelMode() {
   renderTravelScenario();
 }
 
-function renderTravelScenario() {
+function renderTravelScenario(resetPage = true) {
+  if (resetPage) travelPage = 0;
   window.speechSynthesis?.cancel();
   const scenario = travelScenarios[Number(document.getElementById("travelScenario").value)] || travelScenarios[0];
+  const pageCount = Math.ceil(scenario.lines.length / travelPageSize);
+  travelPage = Math.max(0, Math.min(travelPage, pageCount - 1));
+  const start = travelPage * travelPageSize;
+  document.getElementById("travelPageInfo").textContent = `第 ${travelPage + 1} / ${pageCount} 頁・對話 ${start + 1}–${Math.min(start + travelPageSize, scenario.lines.length)} / ${scenario.lines.length}`;
+  document.getElementById("travelPreviousButton").disabled = travelPage === 0;
+  document.getElementById("travelNextButton").disabled = travelPage === pageCount - 1;
   document.getElementById("travelTitle").textContent = scenario.title;
   document.getElementById("travelDescription").textContent = scenario.description;
   const dialogue = document.getElementById("travelDialogue");
   dialogue.innerHTML = "";
-  scenario.lines.forEach(([role, english, chinese]) => {
+  scenario.lines.slice(start, start + travelPageSize).forEach(([role, english, chinese]) => {
     const line = document.createElement("div");
     line.className = "travel-line" + (role === "你" ? " traveler" : "");
     [["travel-role", role], ["travel-english", english], ["travel-chinese", chinese]].forEach(([className, text]) => {
@@ -2556,13 +2694,18 @@ function renderTravelScenario() {
     button.onclick = () => {
       const speech = new SpeechSynthesisUtterance(english);
       speech.lang = "en-US";
-      speech.rate = 0.8;
+      speech.rate = 0.65;
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(speech);
     };
     line.appendChild(button);
     dialogue.appendChild(line);
   });
+}
+
+function changeTravelPage(step) {
+  travelPage += step;
+  renderTravelScenario(false);
 }
 
 let dailyRefreshTimer;
@@ -2579,6 +2722,7 @@ function getDailyLesson(date = new Date()) {
 }
 
 function hideDailyMode() {
+  document.getElementById("dailyHubTabs").classList.add("hidden");
   stopSpeakingPractice(true);
   clearTimeout(dailyRefreshTimer);
   document.getElementById("dailyMode").classList.add("hidden");
@@ -2586,12 +2730,14 @@ function hideDailyMode() {
 }
 
 function showDailyMode() {
+  hideDailyChallenge();
   document.getElementById("travelMode").classList.add("hidden");
   hideTranslationMode();
   ["studyMode", "quizMode", "speakingMode"].forEach(id => {
     document.getElementById(id).classList.add("hidden");
   });
   document.getElementById("dailyMode").classList.remove("hidden");
+  showDailyHubTabs(false);
   renderDailyLesson();
 }
 
@@ -2612,7 +2758,7 @@ function playDailyText(elementId) {
   if (!window.speechSynthesis) return;
   const speech = new SpeechSynthesisUtterance(document.getElementById(elementId).textContent);
   speech.lang = "en-US";
-  speech.rate = 0.8;
+  speech.rate = 0.65;
   window.speechSynthesis.cancel();
   window.speechSynthesis.speak(speech);
 }
@@ -2622,3 +2768,171 @@ document.addEventListener("visibilitychange", () => {
     renderDailyLesson();
   }
 });
+
+let dailyChallenge = null;
+let dailyChallengeShowingAnswer = false;
+
+function dailyChallengeDateKey(date = new Date()) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function buildDailyChallenge(dateKey) {
+  let seed = 2166136261;
+  for (const char of dateKey) seed = Math.imul(seed ^ char.charCodeAt(0), 16777619) >>> 0;
+  function shuffle(items) {
+    const result = [...items];
+    for (let i = result.length - 1; i > 0; i--) {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      const j = Math.floor((seed / 4294967296) * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  }
+  const words = [...new Map(getAllWords().map(word => [word.word.toLowerCase(), word])).values()];
+  const meanings = [...new Set(words.map(word => word.meaning))];
+  const questions = shuffle(words).slice(0, 10).map(word => ({
+    type: "word",
+    word: word.word,
+    meaning: word.meaning,
+    options: shuffle([word.meaning, ...shuffle(meanings.filter(meaning => meaning !== word.meaning)).slice(0, 3)])
+  }));
+  const sentenceMeanings = [...new Set(speakingSentences.map(sentence => sentence.meaning))];
+  questions.push(...shuffle(speakingSentences).slice(0, 3).map(sentence => ({
+    type: "sentence",
+    word: sentence.sentence,
+    meaning: sentence.meaning,
+    options: shuffle([sentence.meaning, ...shuffle(sentenceMeanings.filter(meaning => meaning !== sentence.meaning)).slice(0, 3)])
+  })));
+  return { dateKey, questions, answers: [] };
+}
+
+function loadDailyChallenge() {
+  const dateKey = dailyChallengeDateKey();
+  if (dailyChallenge?.dateKey === dateKey) return;
+  dailyChallenge = buildDailyChallenge(dateKey);
+  dailyChallengeShowingAnswer = false;
+  try {
+    const saved = JSON.parse(localStorage.getItem("dailyWordChallenge"));
+    // Retain progress only when both the date and generated questions still match.
+    if (saved?.dateKey === dateKey && saved.signature === JSON.stringify(dailyChallenge.questions) &&
+        Array.isArray(saved.answers) && saved.answers.length <= dailyChallenge.questions.length &&
+        saved.answers.every(answer => Number.isInteger(answer) && answer >= 0 && answer < 4)) {
+      dailyChallenge.answers = saved.answers;
+    }
+  } catch { /* The challenge also works without browser storage. */ }
+}
+
+function saveDailyChallenge() {
+  try {
+    localStorage.setItem("dailyWordChallenge", JSON.stringify({
+      dateKey: dailyChallenge.dateKey,
+      signature: JSON.stringify(dailyChallenge.questions),
+      answers: dailyChallenge.answers
+    }));
+  } catch { /* Keep the current session playable if storage is unavailable. */ }
+}
+
+function hideDailyChallenge() {
+  document.getElementById("dailyHubTabs").classList.add("hidden");
+  document.getElementById("dailyChallengeMode").classList.add("hidden");
+}
+
+function showDailyHubTabs(challenge) {
+  document.getElementById("dailyHubTabs").classList.remove("hidden");
+  document.getElementById("dailyLearnTab").setAttribute("aria-pressed", String(!challenge));
+  document.getElementById("dailyChallengeTab").setAttribute("aria-pressed", String(challenge));
+}
+
+function showDailyChallengeMode() {
+  hideDailyMode();
+  hideTranslationMode();
+  ["studyMode", "quizMode", "speakingMode", "travelMode"].forEach(id => document.getElementById(id).classList.add("hidden"));
+  loadDailyChallenge();
+  document.getElementById("dailyChallengeMode").classList.remove("hidden");
+  showDailyHubTabs(true);
+  renderDailyChallenge();
+}
+
+function renderDailyChallenge() {
+  const count = dailyChallenge.answers.length;
+  const total = dailyChallenge.questions.length;
+  const finished = count === total && !dailyChallengeShowingAnswer;
+  document.getElementById("dailyChallengeDate").textContent = dailyChallenge.dateKey;
+  document.getElementById("dailyChallengeFeedback").textContent = "";
+  document.getElementById("dailyChallengeNext").classList.add("hidden");
+  document.getElementById("dailyChallengeCelebration").classList.add("hidden");
+  document.getElementById("dailyChallengeSummary").classList.add("hidden");
+  document.getElementById("dailyChallengeQuestion").classList.add("hidden");
+  const scores = { word: 0, sentence: 0 };
+  dailyChallenge.answers.forEach((answer, index) => {
+    const question = dailyChallenge.questions[index];
+    if (question.options[answer] === question.meaning) scores[question.type] += 10;
+  });
+  const perfect = scores.word === 100 && scores.sentence === 30;
+  document.getElementById("dailyChallengeScores").textContent = `單字：${scores.word} / 100 分｜句子：${scores.sentence} / 30 分`;
+  if (finished) {
+    document.getElementById("dailyChallengeProgress").textContent = `已完成 ${total} / ${total} 題（單字 10 題・句子 3 題）`;
+    document.getElementById("dailyChallengeSummary").classList.remove("hidden");
+    document.getElementById("dailyChallengeScore").textContent = `單字：${scores.word} / 100 分\n句子：${scores.sentence} / 30 分`;
+    document.getElementById("dailyChallengeMessage").textContent = perfect ? "全部答對！今天的單字與句子挑戰滿分！" : "完成今天的挑戰了！再練一次，把單字與句子記得更牢。";
+    if (perfect) document.getElementById("dailyChallengeCelebration").classList.remove("hidden");
+    return;
+  }
+  const index = dailyChallengeShowingAnswer ? count - 1 : count;
+  const question = dailyChallenge.questions[index];
+  document.getElementById("dailyChallengeQuestion").classList.remove("hidden");
+  document.getElementById("dailyChallengeProgress").textContent = question.type === "sentence"
+    ? `句子挑戰 ${index - 9} / 3 題・選出句子的中文意思`
+    : `單字挑戰 ${index + 1} / 10 題`;
+  document.getElementById("dailyChallengeOptions").classList[question.type === "sentence" ? "add" : "remove"]("sentence-options");
+  document.getElementById("dailyChallengeWord").textContent = question.word;
+  const options = document.getElementById("dailyChallengeOptions");
+  options.innerHTML = "";
+  question.options.forEach((option, choice) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = option;
+    button.disabled = dailyChallengeShowingAnswer;
+    button.onclick = () => answerDailyChallenge(index, choice);
+    if (dailyChallengeShowingAnswer) {
+      if (option === question.meaning) button.classList.add("correct");
+      else if (choice === dailyChallenge.answers[index]) button.classList.add("wrong");
+    }
+    options.appendChild(button);
+  });
+  if (dailyChallengeShowingAnswer) {
+    const correct = question.options[dailyChallenge.answers[index]] === question.meaning;
+    document.getElementById("dailyChallengeFeedback").textContent = correct ? "答對了！＋10 分" : `再記一次：${question.word} 是「${question.meaning}」`;
+    document.getElementById("dailyChallengeNext").textContent = count === total ? "查看成績 🏆" : count === 10 ? "開始句子挑戰 →" : "下一題 →";
+    document.getElementById("dailyChallengeNext").classList.remove("hidden");
+  }
+}
+
+function answerDailyChallenge(index, choice) {
+  if (dailyChallenge.dateKey !== dailyChallengeDateKey()) {
+    loadDailyChallenge();
+    renderDailyChallenge();
+    return;
+  }
+  if (dailyChallengeShowingAnswer || index !== dailyChallenge.answers.length || index >= dailyChallenge.questions.length || !Number.isInteger(choice) || choice < 0 || choice > 3) return;
+  dailyChallenge.answers.push(choice);
+  dailyChallengeShowingAnswer = true;
+  saveDailyChallenge();
+  renderDailyChallenge();
+}
+
+function nextDailyChallengeQuestion() {
+  if (!dailyChallengeShowingAnswer) return;
+  loadDailyChallenge();
+  dailyChallengeShowingAnswer = false;
+  renderDailyChallenge();
+}
+
+function restartDailyChallenge() {
+  dailyChallenge = buildDailyChallenge(dailyChallengeDateKey());
+  dailyChallengeShowingAnswer = false;
+  saveDailyChallenge();
+  renderDailyChallenge();
+}
+
+showDailyMode();

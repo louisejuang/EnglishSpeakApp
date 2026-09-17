@@ -487,6 +487,23 @@ hr {
 .travel-role { margin: 0; color: #64748b; font-size: 14px; }
 .travel-english { margin: 12px 0 8px; font-size: 24px; line-height: 1.5; overflow-wrap: anywhere; }
 .travel-chinese { margin: 8px 0 12px; font-size: 20px; line-height: 1.6; color: #64748b; }
+.travel-pagination button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.daily-challenge-card > h2 { margin-top: 0; }
+.daily-subtabs { margin: 0 0 20px; text-align: center; }
+.daily-subtabs button[aria-pressed="true"] { background: #c4b5fd; outline: 2px solid #7c3aed; outline-offset: 2px; }
+#dailyChallengeOptions.sentence-options button { width: 100%; line-height: 1.6; }
+#dailyChallengeWord { font-size: 34px; overflow-wrap: anywhere; }
+#dailyChallengeScore { font-size: 28px; font-weight: 800; color: #7c3aed; white-space: pre-line; line-height: 1.7; }
+.daily-challenge-back { display: block; margin: 24px auto 0; font-size: 13px; padding: 8px 12px; }
+#dailyChallengeOptions button:disabled { cursor: default; transform: none; }
+#dailyChallengeCelebration { font-size: 32px; padding: 24px 0; animation: daily-celebrate 800ms ease-in-out 4; }
+@keyframes daily-celebrate {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-18px) scale(1.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #dailyChallengeCelebration { animation: none; }
+}
 .daily-card > h2 { margin-top: 0; }
 .daily-label { margin-top: 26px; font-size: 16px; color: #7c3aed; }
 .daily-word { font-size: 36px; font-weight: 800; margin: 16px 0; overflow-wrap: anywhere; }

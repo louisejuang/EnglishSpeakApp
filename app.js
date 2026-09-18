@@ -1315,6 +1315,7 @@ vocabulary.emergency = [
   { word: "rescue", meaning: "救援", example: "The rescue team is on its way.", exampleMeaning: "救援隊正在趕來的路上。" }
 ];
 
+const dailyFavoriteItems = {};
 let currentCategory = "airport";
 let currentIndex = 0;
 
@@ -1511,6 +1512,11 @@ function updateFavoriteButton() {
 
   renderFavoriteButton("favoriteButton", vocabulary[currentCategory][currentIndex]);
   renderFavoriteButton("quizFavoriteButton", currentQuizWord);
+  Object.entries(dailyFavoriteItems).forEach(([buttonId, item]) => renderFavoriteButton(buttonId, item));
+}
+
+function toggleDailyFavorite(buttonId) {
+  toggleFavorite(dailyFavoriteItems[buttonId] || null);
 }
 
 function renderFavoriteButton(buttonId, current) {
@@ -2750,6 +2756,9 @@ function renderDailyLesson() {
   document.getElementById("dailyMeaning").textContent = lesson.word.meaning;
   document.getElementById("dailySentence").textContent = lesson.sentence.sentence;
   document.getElementById("dailySentenceMeaning").textContent = lesson.sentence.meaning;
+  dailyFavoriteItems.dailyWordFavorite = lesson.word;
+  dailyFavoriteItems.dailySentenceFavorite = { word: lesson.sentence.sentence, meaning: lesson.sentence.meaning };
+  updateFavoriteButton();
   const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
   dailyRefreshTimer = setTimeout(renderDailyLesson, tomorrow.getTime() - now.getTime());
 }
@@ -2856,7 +2865,6 @@ function showDailyChallengeMode() {
 function renderDailyChallenge() {
   const count = dailyChallenge.answers.length;
   const total = dailyChallenge.questions.length;
-  const finished = count === total && !dailyChallengeShowingAnswer;
   document.getElementById("dailyChallengeDate").textContent = dailyChallenge.dateKey;
   document.getElementById("dailyChallengeFeedback").textContent = "";
   document.getElementById("dailyChallengeNext").classList.add("hidden");
@@ -2869,17 +2877,22 @@ function renderDailyChallenge() {
     if (question.options[answer] === question.meaning) scores[question.type] += 10;
   });
   const perfect = scores.word === 100 && scores.sentence === 30;
-  document.getElementById("dailyChallengeScores").textContent = `單字：${scores.word} / 100 分｜句子：${scores.sentence} / 30 分`;
+  const finished = count === total && (!dailyChallengeShowingAnswer || perfect);
   if (finished) {
+    document.getElementById("dailyChallengeOptions").innerHTML = "";
     document.getElementById("dailyChallengeProgress").textContent = `已完成 ${total} / ${total} 題（單字 10 題・句子 3 題）`;
     document.getElementById("dailyChallengeSummary").classList.remove("hidden");
-    document.getElementById("dailyChallengeScore").textContent = `單字：${scores.word} / 100 分\n句子：${scores.sentence} / 30 分`;
-    document.getElementById("dailyChallengeMessage").textContent = perfect ? "全部答對！今天的單字與句子挑戰滿分！" : "完成今天的挑戰了！再練一次，把單字與句子記得更牢。";
+    document.getElementById("dailyChallengeScore").textContent = `單字：${scores.word} / 100 分`;
+    document.getElementById("dailyChallengeMessage").textContent = perfect ? "全部答對！今天的單字與句子挑戰成功！" : "完成今天的挑戰了！再練一次，把單字與句子記得更牢。";
     if (perfect) document.getElementById("dailyChallengeCelebration").classList.remove("hidden");
     return;
   }
   const index = dailyChallengeShowingAnswer ? count - 1 : count;
   const question = dailyChallenge.questions[index];
+  dailyFavoriteItems.dailyChallengeFavorite = question.type === "word"
+    ? getAllWords().find(item => item.word === question.word && item.meaning === question.meaning)
+    : { word: question.word, meaning: question.meaning };
+  renderFavoriteButton("dailyChallengeFavorite", dailyFavoriteItems.dailyChallengeFavorite);
   document.getElementById("dailyChallengeQuestion").classList.remove("hidden");
   document.getElementById("dailyChallengeProgress").textContent = question.type === "sentence"
     ? `句子挑戰 ${index - 9} / 3 題・選出句子的中文意思`
@@ -2902,7 +2915,7 @@ function renderDailyChallenge() {
   });
   if (dailyChallengeShowingAnswer) {
     const correct = question.options[dailyChallenge.answers[index]] === question.meaning;
-    document.getElementById("dailyChallengeFeedback").textContent = correct ? "答對了！＋10 分" : `再記一次：${question.word} 是「${question.meaning}」`;
+    document.getElementById("dailyChallengeFeedback").textContent = correct ? (question.type === "word" ? "答對了！＋10 分" : "答對了！") : `再記一次：${question.word} 是「${question.meaning}」`;
     document.getElementById("dailyChallengeNext").textContent = count === total ? "查看成績 🏆" : count === 10 ? "開始句子挑戰 →" : "下一題 →";
     document.getElementById("dailyChallengeNext").classList.remove("hidden");
   }

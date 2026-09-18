@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Huninn&family=LXGW+WenKai+TC:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=separate-scores-40">
+  <link rel="stylesheet" href="style.css?v=daily-pocket-corner-45">
 </head>
 
 <body>
@@ -213,11 +213,10 @@
       <div class="quiz-card daily-challenge-card">
         <h2>🏆 每日挑戰</h2>
         <p id="dailyChallengeDate" class="translation-hint"></p>
-        <p>每題 10 分・單字 10 題，滿分 100 分・句子 3 題，滿分 30 分</p>
-        <p id="dailyChallengeScores" role="status"></p>
         <p id="dailyChallengeProgress" role="status"></p>
         <div id="dailyChallengeQuestion">
           <h3 id="dailyChallengeWord" lang="en"></h3>
+          <button id="dailyChallengeFavorite" type="button" class="favorite-button" aria-label="收進口袋" aria-pressed="false" onclick="toggleDailyFavorite('dailyChallengeFavorite')"><span aria-hidden="true">🤍</span><span class="favorite-label"> 收進口袋</span></button>
           <div id="dailyChallengeOptions" class="quiz-options"></div>
         </div>
         <p id="dailyChallengeFeedback" role="status"></p>
@@ -228,7 +227,6 @@
           <p id="dailyChallengeMessage"></p>
           <button type="button" onclick="restartDailyChallenge()">再挑戰一次</button>
         </div>
-        <button type="button" class="daily-challenge-back" onclick="showDailyMode()">回到每日一學</button>
       </div>
     </div>
 
@@ -241,6 +239,7 @@
           <h3 id="dailyWordHeading" class="daily-label">今日單字</h3>
           <p id="dailyWord" class="daily-word" lang="en"></p>
           <p id="dailyMeaning" class="meaning"></p>
+          <button id="dailyWordFavorite" type="button" class="favorite-button" aria-label="收進口袋" aria-pressed="false" onclick="toggleDailyFavorite('dailyWordFavorite')"><span aria-hidden="true">🤍</span><span class="favorite-label"> 收進口袋</span></button>
           <button type="button" onclick="playDailyText('dailyWord')">🔊 聽聽單字</button>
         </section>
         <hr>
@@ -248,6 +247,7 @@
           <h3 id="dailySentenceHeading" class="daily-label">今日句子</h3>
           <p id="dailySentence" class="daily-sentence" lang="en"></p>
           <p id="dailySentenceMeaning" class="daily-sentence-meaning"></p>
+          <button id="dailySentenceFavorite" type="button" class="favorite-button" aria-label="收進口袋" aria-pressed="false" onclick="toggleDailyFavorite('dailySentenceFavorite')"><span aria-hidden="true">🤍</span><span class="favorite-label"> 收進口袋</span></button>
           <button type="button" class="listen-button" onclick="playDailyText('dailySentence')">🔊 聽聽這一句</button>
         </section>
         <p class="translation-hint daily-footer">依裝置日期每日更新，今天可以反覆練習。</p>
@@ -291,7 +291,7 @@
     </div>
   </div>
 
-  <script src="app.js?v=separate-scores-40"></script>
+  <script src="app.js?v=daily-favorites-44"></script>
 
 </body>
 </html>
